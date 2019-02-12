@@ -3,6 +3,8 @@ package com.luxoft.korzch.services;
 import com.luxoft.korzch.dao.ClientDao;
 import com.luxoft.korzch.domain.Client;
 
+import java.util.List;
+
 public class ClientServiceImpl implements ClientService {
 
     private final ClientDao clientDao;
@@ -12,12 +14,27 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void createClient(String name, String lastName, String phone) {
-        clientDao.saveClient(new Client(name, lastName, phone));
+    public boolean createClient(String name, String lastName, String phone) {
+        return clientDao.saveClient(new Client(name, lastName, phone));
     }
 
     @Override
-    public void removeClient(String name, String lastName, String phone) {
+    public boolean removeClient(long id) {
+        return clientDao.removeClient(id);
+    }
 
+    @Override
+    public boolean updateClient(long id, String email ,int age) {
+        return clientDao.updateClient(id, email , age);
+    }
+
+    @Override
+    public Client getClient(long id) {
+        return clientDao.getClient(id);
+    }
+
+    @Override
+    public List<Client> getAllClients() {
+        return clientDao.getAllClients();
     }
 }

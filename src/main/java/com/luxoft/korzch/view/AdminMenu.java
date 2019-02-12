@@ -1,9 +1,13 @@
 package com.luxoft.korzch.view;
 
+import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.services.ClientService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
+
+import static com.luxoft.korzch.util.Util.*;
 
 public class AdminMenu implements Menu {
 
@@ -16,12 +20,9 @@ public class AdminMenu implements Menu {
 
     @Override
     public void showMenu() {
-        showCases();
-
         boolean isRunning = true;
-
         while (isRunning) {
-
+            showMenuPanel();
             try {
                 switch (reader.readLine()) {
                     case "1": {
@@ -29,27 +30,27 @@ public class AdminMenu implements Menu {
                         break;
                     }
                     case "2": {
-//                    clientMenu.showMenu();
+                        modifyClient();
                         break;
                     }
                     case "3": {
-//                    isRunning = false;
+                        getClient();
                         break;
                     }
                     case "4": {
-//                    isRunning = false;
+                        removeClient();
                         break;
                     }
                     case "5": {
-//                    isRunning = false;
+                        getAllClients();
                         break;
                     }
                     case "9": {
-                    isRunning = false;
+                        isRunning = false;
                         break;
                     }
                     case "0": {
-//                    isRunning = false;
+                        closeProgram();
                         break;
                     }
                     default: {
@@ -62,24 +63,85 @@ public class AdminMenu implements Menu {
         }
     }
 
+    private void removeClient() throws IOException {
+        System.out.println("input client id");
+        long id = idToLong(reader.readLine());
+        boolean success = clientService.removeClient(id);
+        if(success){
+            System.out.println("Client has been removed");
+        }else {
+            System.out.println("Client hasn't been found");
+        }
+    }
+
+    private void getAllClients() {
+        List<Client> clients = clientService.getAllClients();
+        clients.forEach(client -> System.out.println(client.toString()));
+        if(clients.isEmpty()){
+            System.out.println("Sorry, there are not clients in the database");
+        }
+    }
+
+    private void getClient() throws IOException {
+        System.out.println("input client id");
+        long id = idToLong(reader.readLine());
+        if (id > 0) {
+            Client client = clientService.getClient(id);
+            if (client != null) {
+                System.out.println(client.toString());
+            } else {
+                System.out.println("Client hasn't been found");
+            }
+        } else {
+            System.out.println("Wrong id");
+        }
+    }
+
+    private void modifyClient() throws IOException {
+        System.out.println("input client id");
+        long id = idToLong(reader.readLine());
+        if (id > 0) {
+            System.out.println("input email");
+            String email = reader.readLine();
+            System.out.println("input age");
+            int age = ageToInt(reader.readLine());
+            boolean success = clientService.updateClient(id, email, age);
+            if (success) {
+                System.out.println("Client has been updated");
+            } else {
+                System.out.println("Client hasn't been found");
+            }
+        } else {
+            System.out.println("Client hasn't been found");
+        }
+    }
+
     private void createClient() throws IOException {
         System.out.println("input name");
         String name = reader.readLine();
-        System.out.println("last name");
+        System.out.println("input last name");
         String lastName = reader.readLine();
         System.out.println("input phone");
         String phone = reader.readLine();
-        clientService.createClient(name, lastName, phone);
+        boolean success = clientService.createClient(name, lastName, phone);
+        if (success) {
+            System.out.println("Client has been created");
+        } else {
+            System.out.println("Sorry we can't create such client");
+        }
     }
 
-    private void showCases() {
+    private void showMenuPanel() {
+        System.out.println();
+        System.out.println("-------Admin menu------");
         System.out.println("1. Add client");
         System.out.println("2. Modify client");
-        System.out.println("3. Remove client");
-        System.out.println("4. List all client");
-        System.out.println("5. Add product");
+        System.out.println("3. Show client");
+        System.out.println("4. Remove client");
+        System.out.println("5. List all client");
+        System.out.println("6. Add product");
         System.out.println("9. Return");
-        System.out.println("0. Exist");
+        System.out.println("0. Exit");
     }
 
     void setReader(BufferedReader reader) {

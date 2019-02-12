@@ -22,13 +22,9 @@ public class MainMenu implements Menu {
 
     @Override
     public void showMenu() {
-
         boolean isRunning = true;
-
         while (isRunning) {
-
-            showCases();
-
+            showMenuPanel();
             try {
                 switch (reader.readLine()) {
                     case "1": {
@@ -54,9 +50,11 @@ public class MainMenu implements Menu {
         }
     }
 
-    private void showCases() {
-        System.out.println("1. Admin");
-        System.out.println("2. Client");
+    private void showMenuPanel() {
+        System.out.println();
+        System.out.println("-------Main menu------");
+        System.out.println("1. Admin menu");
+        System.out.println("2. Client menu");
         System.out.println("0. Exit");
     }
 }

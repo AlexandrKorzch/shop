@@ -82,12 +82,7 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return id == client.id &&
-                age == client.age &&
-                Objects.equals(name, client.name) &&
-                Objects.equals(lastName, client.lastName) &&
-                Objects.equals(email, client.email) &&
-                Objects.equals(phone, client.phone);
+        return id == client.id;
     }
 
     @Override
