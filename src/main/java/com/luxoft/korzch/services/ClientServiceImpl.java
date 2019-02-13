@@ -2,15 +2,18 @@ package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.dao.ClientDao;
 import com.luxoft.korzch.domain.Client;
+import com.luxoft.korzch.session.Session;
 
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
 
     private final ClientDao clientDao;
+    private final SessionService sessionService;
 
-    public ClientServiceImpl(ClientDao clientDao) {
+    public ClientServiceImpl(ClientDao clientDao, SessionService sessionService) {
         this.clientDao = clientDao;
+        this.sessionService = sessionService;
     }
 
     @Override

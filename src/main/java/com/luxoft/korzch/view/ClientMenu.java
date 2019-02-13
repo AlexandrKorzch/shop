@@ -1,6 +1,8 @@
 package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.OrderService;
+import com.luxoft.korzch.services.ProductService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,11 +11,10 @@ import static com.luxoft.korzch.util.Util.closeProgram;
 
 public class ClientMenu implements Menu {
 
-    private final ClientService clientService;
     private BufferedReader reader;
 
-    public ClientMenu(ClientService clientService) {
-        this.clientService = clientService;
+    public ClientMenu(ProductService productService, OrderService orderService) {
+
     }
 
     @Override
@@ -24,23 +25,27 @@ public class ClientMenu implements Menu {
             try {
                 switch (reader.readLine()) {
                     case "1": {
-//                    adminMenu.showMenu();
+                        login();
                         break;
                     }
                     case "2": {
-//                    clientMenu.showMenu();
+                        showAllProducts();
                         break;
                     }
                     case "3": {
-//                    isRunning = false;
+                        addProductToBasket();
                         break;
                     }
                     case "4": {
-//                    isRunning = false;
+                        showBasket();
                         break;
                     }
                     case "5": {
-//                    isRunning = false;
+                        removeProductFromBasket();
+                        break;
+                    }
+                    case "6": {
+                        showOrders();
                         break;
                     }
                     case "9": {
@@ -61,10 +66,38 @@ public class ClientMenu implements Menu {
         }
     }
 
+    private void showOrders() {
+        //todo show orders
+    }
+
+    private void login() {
+        //todo login()
+    }
+
+    private void removeProductFromBasket() {
+        //todo removeProductFromBasket
+    }
+
+    private void showBasket() {
+        //todo showBasket
+    }
+
+    private void addProductToBasket() {
+        //todo addProductToBasket()
+    }
+
+    private void showAllProducts() {
+        //todo showAllProducts
+    }
+
     private void showMenuPanel() {
         System.out.println("-------Client menu------");
-        System.out.println("1. Admin");
-        System.out.println("2. Client");
+        System.out.println("1. Login");
+        System.out.println("2. Show all products");
+        System.out.println("3. Add product to basket");
+        System.out.println("4. Show basket");
+        System.out.println("5. Remove from basket");
+        System.out.println("6. Show orders");
         System.out.println("9. Return");
         System.out.println("0. Exit");
     }

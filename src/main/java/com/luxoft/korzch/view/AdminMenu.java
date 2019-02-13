@@ -2,6 +2,8 @@ package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.OrderService;
+import com.luxoft.korzch.services.ProductService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +16,7 @@ public class AdminMenu implements Menu {
     private final ClientService clientService;
     private BufferedReader reader;
 
-    public AdminMenu(ClientService clientService) {
+    public AdminMenu(ClientService clientService, ProductService productService, OrderService orderService) {
         this.clientService = clientService;
     }
 
@@ -45,6 +47,18 @@ public class AdminMenu implements Menu {
                         getAllClients();
                         break;
                     }
+                    case "6": {
+                        addProduct();
+                        break;
+                    }
+                    case "7": {
+                        removeProduct();
+                        break;
+                    }
+                    case "8": {
+                        showClientOrders();
+                        break;
+                    }
                     case "9": {
                         isRunning = false;
                         break;
@@ -61,6 +75,18 @@ public class AdminMenu implements Menu {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void showClientOrders() {
+        //todo showClientOrders
+    }
+
+    private void removeProduct() {
+        //todo remove product
+    }
+
+    private void addProduct() {
+        //todo add product
     }
 
     private void removeClient() throws IOException {
@@ -140,6 +166,8 @@ public class AdminMenu implements Menu {
         System.out.println("4. Remove client");
         System.out.println("5. List all client");
         System.out.println("6. Add product");
+        System.out.println("7. Remove product");
+        System.out.println("8. Show client orders");
         System.out.println("9. Return");
         System.out.println("0. Exit");
     }
