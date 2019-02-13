@@ -58,4 +58,9 @@ public class ClientDaoImpl implements ClientDao {
     public List<Client> getAllClients() {
         return clients;
     }
+
+    @Override
+    public Client findClient(String id) {
+        return null;
+    }
 }

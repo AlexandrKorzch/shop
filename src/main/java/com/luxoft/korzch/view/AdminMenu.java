@@ -14,10 +14,16 @@ import static com.luxoft.korzch.util.Util.*;
 public class AdminMenu implements Menu {
 
     private final ClientService clientService;
+    private final ProductService productService;
+    private final OrderService orderService;
     private BufferedReader reader;
 
-    public AdminMenu(ClientService clientService, ProductService productService, OrderService orderService) {
+    public AdminMenu(ClientService clientService,
+                     ProductService productService,
+                     OrderService orderService) {
         this.clientService = clientService;
+        this.productService = productService;
+        this.orderService = orderService;
     }
 
     @Override
@@ -93,9 +99,9 @@ public class AdminMenu implements Menu {
         System.out.println("input client id");
         long id = idToLong(reader.readLine());
         boolean success = clientService.removeClient(id);
-        if(success){
+        if (success) {
             System.out.println("Client has been removed");
-        }else {
+        } else {
             System.out.println("Client hasn't been found");
         }
     }
@@ -103,7 +109,7 @@ public class AdminMenu implements Menu {
     private void getAllClients() {
         List<Client> clients = clientService.getAllClients();
         clients.forEach(client -> System.out.println(client.toString()));
-        if(clients.isEmpty()){
+        if (clients.isEmpty()) {
             System.out.println("Sorry, there are not clients in the database");
         }
     }

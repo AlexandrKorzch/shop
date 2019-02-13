@@ -3,6 +3,7 @@ package com.luxoft.korzch.view;
 import com.luxoft.korzch.services.ClientService;
 import com.luxoft.korzch.services.OrderService;
 import com.luxoft.korzch.services.ProductService;
+import com.luxoft.korzch.services.SessionService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,10 +12,20 @@ import static com.luxoft.korzch.util.Util.closeProgram;
 
 public class ClientMenu implements Menu {
 
+    private final SessionService sessionService;
+    private final ClientService clientService;
+    private final ProductService productService;
+    private final OrderService orderService;
     private BufferedReader reader;
 
-    public ClientMenu(ProductService productService, OrderService orderService) {
-
+    public ClientMenu(ClientService clientService,
+                      ProductService productService,
+                      OrderService orderService,
+                      SessionService sessionService) {
+        this.clientService = clientService;
+        this.productService = productService;
+        this.orderService = orderService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -70,8 +81,11 @@ public class ClientMenu implements Menu {
         //todo show orders
     }
 
-    private void login() {
+    private void login() throws IOException {
         //todo login()
+        System.out.println("input client id");
+        String id = reader.readLine();
+        clientService.loginClient(id);
     }
 
     private void removeProductFromBasket() {

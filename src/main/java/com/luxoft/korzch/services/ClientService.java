@@ -30,4 +30,9 @@ public interface ClientService {
      * todo add documentation
      * */
     List<Client> getAllClients();
+
+    /**
+     * todo add documentation
+     * */
+    boolean loginClient(String id);
 }

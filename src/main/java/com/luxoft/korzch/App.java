@@ -23,7 +23,7 @@ public class App {
         ProductService productService = new ProductServiceImpl(productDao);
 
         AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);
-        ClientMenu clientMenu = new ClientMenu(productService, orderService);
+        ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, sessionService);
 
         MainMenu menu = new MainMenu(adminMenu, clientMenu);
         menu.showMenu();

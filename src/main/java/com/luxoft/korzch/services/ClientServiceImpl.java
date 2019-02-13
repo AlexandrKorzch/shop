@@ -40,4 +40,15 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> getAllClients() {
         return clientDao.getAllClients();
     }
+
+    @Override
+    public boolean loginClient(String id) {
+        Client client = clientDao.findClient(id);
+        if(client != null){
+            sessionService.setCurrentClient(client);
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

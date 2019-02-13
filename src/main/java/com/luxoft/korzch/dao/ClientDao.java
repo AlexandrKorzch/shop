@@ -10,4 +10,5 @@ public interface ClientDao {
     boolean updateClient(long id, String email ,int age);
     Client getClient(long id);
     List<Client> getAllClients();
+    Client findClient(String id);
 }
