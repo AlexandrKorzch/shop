@@ -1,5 +1,6 @@
 package com.luxoft.korzch.view;
 
+import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.services.ClientService;
 import com.luxoft.korzch.services.OrderService;
 import com.luxoft.korzch.services.ProductService;
@@ -7,8 +8,9 @@ import com.luxoft.korzch.services.SessionService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
-import static com.luxoft.korzch.util.Util.closeProgram;
+import static com.luxoft.korzch.util.Util.*;
 
 public class ClientMenu implements Menu {
 
@@ -78,14 +80,28 @@ public class ClientMenu implements Menu {
     }
 
     private void showOrders() {
-        //todo show orders
+        String clientId = sessionService.isClientLoggedIn();
+        if (isNotNull(clientId)) {
+            List<Order> orders = orderService.getClientOrders(clientId);
+            if (isNotEmpty(orders)) {
+                orders.forEach(order -> System.out.println(order.toString()));
+            } else {
+                System.out.println("Sorry, You don't have orders");
+            }
+        } else {
+            System.out.println("Please Log In");
+        }
     }
 
     private void login() throws IOException {
-        //todo login()
         System.out.println("input client id");
         String id = reader.readLine();
-        clientService.loginClient(id);
+        boolean success = clientService.loginClient(id);
+        if (success) {
+            System.out.println("You are logged in. Well come!!!");
+        } else {
+            System.out.println("Please contact the Administrator");
+        }
     }
 
     private void removeProductFromBasket() {

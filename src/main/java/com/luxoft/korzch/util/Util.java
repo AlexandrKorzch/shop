@@ -1,5 +1,7 @@
 package com.luxoft.korzch.util;
 
+import java.util.List;
+
 public class Util {
 
     public static void closeProgram() {
@@ -20,5 +22,21 @@ public class Util {
         } catch (NumberFormatException e) {
             return -1;
         }
+    }
+
+    public static float priceToFloat(String price) {
+        try {
+            return Float.parseFloat(price);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    public static boolean isNotEmpty(List<?> list){
+        return !list.isEmpty();
+    }
+
+    public static boolean isNotNull(Object object){
+        return object != null;
     }
 }

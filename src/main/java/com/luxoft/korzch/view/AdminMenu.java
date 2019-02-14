@@ -1,6 +1,7 @@
 package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Client;
+import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.services.ClientService;
 import com.luxoft.korzch.services.OrderService;
 import com.luxoft.korzch.services.ProductService;
@@ -9,7 +10,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-import static com.luxoft.korzch.util.Util.*;
+import static com.luxoft.korzch.util.Util.closeProgram;
+import static com.luxoft.korzch.util.Util.isNotEmpty;
 
 public class AdminMenu implements Menu {
 
@@ -83,21 +85,44 @@ public class AdminMenu implements Menu {
         }
     }
 
-    private void showClientOrders() {
-        //todo showClientOrders
+    private void showClientOrders() throws IOException {
+        System.out.println("enter client id");
+        String clientId = reader.readLine();
+        List<Order> ordersList = orderService.getClientOrders(clientId);
+        if(isNotEmpty(ordersList)){
+            ordersList.forEach(order -> System.out.println(order.toString()));
+        }else {
+            System.out.println("This client don't have any orders");
+        }
     }
 
-    private void removeProduct() {
-        //todo remove product
+    private void removeProduct() throws IOException {
+        System.out.println("enter product id");
+        String productId = reader.readLine();
+        boolean success = productService.removeProduct(productId);
+        if(success){
+            System.out.println("product has been removed");
+        }else {
+            System.out.println("product hasn't been removed");
+        }
     }
 
-    private void addProduct() {
-        //todo add product
+    private void addProduct() throws IOException {
+        System.out.println("add product name");
+        String productName = reader.readLine();
+        System.out.println("add product price");
+        String productPrice = reader.readLine();
+        boolean success = productService.addNewProduct(productName, productPrice);
+        if(success){
+            System.out.println("new product has been added");
+        }else {
+            System.out.println("unfortunately product can't be added");
+        }
     }
 
     private void removeClient() throws IOException {
         System.out.println("input client id");
-        long id = idToLong(reader.readLine());
+        String id = reader.readLine();
         boolean success = clientService.removeClient(id);
         if (success) {
             System.out.println("Client has been removed");
@@ -116,33 +141,25 @@ public class AdminMenu implements Menu {
 
     private void getClient() throws IOException {
         System.out.println("input client id");
-        long id = idToLong(reader.readLine());
-        if (id > 0) {
-            Client client = clientService.getClient(id);
-            if (client != null) {
-                System.out.println(client.toString());
-            } else {
-                System.out.println("Client hasn't been found");
-            }
+        String id = reader.readLine();
+        Client client = clientService.getClient(id);
+        if (client != null) {
+            System.out.println(client.toString());
         } else {
-            System.out.println("Wrong id");
+            System.out.println("Client hasn't been found");
         }
     }
 
     private void modifyClient() throws IOException {
         System.out.println("input client id");
-        long id = idToLong(reader.readLine());
-        if (id > 0) {
-            System.out.println("input email");
-            String email = reader.readLine();
-            System.out.println("input age");
-            int age = ageToInt(reader.readLine());
-            boolean success = clientService.updateClient(id, email, age);
-            if (success) {
-                System.out.println("Client has been updated");
-            } else {
-                System.out.println("Client hasn't been found");
-            }
+        String id = reader.readLine();
+        System.out.println("input email");
+        String email = reader.readLine();
+        System.out.println("input age");
+        String age = reader.readLine();
+        boolean success = clientService.updateClient(id, email, age);
+        if (success) {
+            System.out.println("Client has been updated");
         } else {
             System.out.println("Client hasn't been found");
         }

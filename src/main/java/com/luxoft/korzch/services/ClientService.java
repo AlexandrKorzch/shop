@@ -14,17 +14,17 @@ public interface ClientService {
     /**
      * todo add documentation
      * */
-    boolean removeClient(long id);
+    boolean removeClient(String id);
 
     /**
      * todo add documentation
      * */
-    boolean updateClient(long id, String email ,int age);
+    boolean updateClient(String id, String email , String age);
 
     /**
      * todo add documentation
      * */
-    Client getClient(long id);
+    Client getClient(String id);
 
     /**
      * todo add documentation
