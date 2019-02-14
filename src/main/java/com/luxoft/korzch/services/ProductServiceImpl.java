@@ -5,6 +5,8 @@ import com.luxoft.korzch.domain.Product;
 
 import java.util.List;
 
+import static com.luxoft.korzch.util.Util.priceToFloat;
+
 public class ProductServiceImpl implements ProductService {
 
     private final ProductDao productDao;
@@ -15,16 +17,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean addNewProduct(String productName, String productPrice) {
-        return false;
+        productDao.addNewProduct(new Product(productName, priceToFloat(productPrice)));
+        return true;
     }
 
     @Override
     public boolean removeProduct(String productId) {
-        return false;
+        productDao.removeProduct(productId);
+        return true;
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return productDao.getAllProducts();
     }
 }

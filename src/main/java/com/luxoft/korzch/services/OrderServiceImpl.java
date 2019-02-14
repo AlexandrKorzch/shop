@@ -1,10 +1,13 @@
 package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.dao.OrderDao;
+import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.session.Session;
 
 import java.util.List;
+
+import static com.luxoft.korzch.util.Util.isNotNull;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -18,11 +21,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getClientOrders(String clientId) {
-        return null;
+        Client client = sessionService.getCurrentClient();
+        if(isNotNull(client)){
+            return client.getOrders();
+        }else {
+            return null;
+        }
     }
 
     @Override
     public void addOrder(Order order, long clientId) {
-
+        order.setClientId(clientId);
+        orderDao.addOrder(order);
     }
 }

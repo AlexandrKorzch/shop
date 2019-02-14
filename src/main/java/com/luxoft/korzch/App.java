@@ -18,7 +18,7 @@ public class App {
         OrderDao orderDao = new OrderDaoImpl();
 
         SessionService sessionService = new SessionServiceImpl(session);
-        ClientService clientService = new ClientServiceImpl(clientDao, sessionService);
+        ClientService clientService = new ClientServiceImpl(productDao, clientDao, sessionService);
         OrderService orderService = new OrderServiceImpl(orderDao, sessionService);
         ProductService productService = new ProductServiceImpl(productDao);
 

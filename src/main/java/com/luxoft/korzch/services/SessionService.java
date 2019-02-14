@@ -7,11 +7,6 @@ public interface SessionService {
     /**
      * todo add documentation
      * */
-    boolean clearSession();
-
-    /**
-     * todo add documentation
-     * */
     String isClientLoggedIn();
 
     /**
@@ -28,5 +23,7 @@ public interface SessionService {
      * todo add documentation
      * */
     void setClientService(ClientService clientService);
+
+    Client getCurrentClient();
 
 }

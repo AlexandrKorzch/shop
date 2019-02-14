@@ -37,7 +37,11 @@ public class Util {
     }
 
     public static boolean isNotEmpty(List<?> list){
-        return !list.isEmpty();
+        if(list == null){
+            return true;
+        }else {
+            return !list.isEmpty();
+        }
     }
 
     public static boolean isNotNull(Object object){

@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ClientDaoImpl implements ClientDao {
 
-
     private List<Client> clients = new ArrayList<>();
 
     @Override
@@ -58,6 +57,4 @@ public class ClientDaoImpl implements ClientDao {
     public List<Client> getAllClients() {
         return clients;
     }
-
-
 }

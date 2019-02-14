@@ -3,8 +3,13 @@ package com.luxoft.korzch.domain;
 public class Product {
 
     private long id;
-    private String name;
-    private float price;
+    private String productName;
+    private float productPrice;
+
+    public Product(String productName, float productPrice) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+    }
 
     public long getId() {
         return id;
@@ -14,19 +19,28 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public float getPrice() {
-        return price;
+    public float getProductPrice() {
+        return productPrice;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setProductPrice(float productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", productPrice=" + productPrice +
+                '}';
     }
 }

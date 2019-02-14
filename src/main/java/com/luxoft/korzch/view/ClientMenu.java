@@ -64,7 +64,7 @@ public class ClientMenu implements Menu {
                         break;
                     }
                     case "9": {
-                        sessionService.logOut();
+//                        sessionService.logOut();
                         isRunning = false;
                         break;
                     }
@@ -162,6 +162,7 @@ public class ClientMenu implements Menu {
     }
 
     private void showMenuPanel() {
+        System.out.println();
         System.out.println("-------Client menu------");
         System.out.println("1. Login");
         System.out.println("2. Show all products");

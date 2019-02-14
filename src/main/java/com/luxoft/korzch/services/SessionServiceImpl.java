@@ -36,12 +36,12 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public void logOut() {
-
+        session.clearSession();
     }
 
     @Override
-    public boolean clearSession() {
-        return session.clearSession();
+    public Client getCurrentClient() {
+        return session.getCurrentClient();
     }
 
     @Override

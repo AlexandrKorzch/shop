@@ -1,6 +1,8 @@
 package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.dao.ClientDao;
+import com.luxoft.korzch.dao.ProductDao;
+import com.luxoft.korzch.domain.Basket;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Product;
 
@@ -12,10 +14,12 @@ import static com.luxoft.korzch.util.Util.idToLong;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientDao clientDao;
+    private final ProductDao productDao;
     private final SessionService sessionService;
 
-    public ClientServiceImpl(ClientDao clientDao, SessionService sessionService) {
+    public ClientServiceImpl(ProductDao productDao, ClientDao clientDao, SessionService sessionService) {
         this.clientDao = clientDao;
+        this.productDao = productDao;
         this.sessionService = sessionService;
     }
 
@@ -30,8 +34,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean updateClient(String id, String email, String age) {
-        return clientDao.updateClient(idToLong(id), email, ageToInt(age));
+    public boolean updateClient(String clientId, String email, String age) {
+        return clientDao.updateClient(idToLong(clientId), email, ageToInt(age));
     }
 
     @Override
@@ -40,22 +44,35 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean removeProductFromBasket(String id) {
+    public boolean removeProductFromBasket(String productId) {
+        Client client = sessionService.getCurrentClient();
+        Basket basket = client.getBasket();
+        basket.getBasket().forEach(product1 -> {
+            if(product1.getId() == idToLong(productId)){
+                basket.getBasket().remove(product1);
+            }
+        });
         return false;
     }
 
     @Override
-    public boolean addProductToBasket(String id) {
-        return false;
+    public boolean addProductToBasket(String productId) {
+        Client client = sessionService.getCurrentClient();
+        Basket basket = client.getBasket();
+        Product product = productDao.getProduct(idToLong(productId));
+        basket.getBasket().add(product);
+        return true;
     }
 
     @Override
-    public Client getClient(String id) {
-        return null;
+    public Client getClient(String clientId) {
+        return clientDao.getClient(idToLong(clientId));
     }
 
     @Override
     public List<Product> getBasket(String clientId) {
-        return null;
+        Client client = sessionService.getCurrentClient();
+        Basket basket = client.getBasket();
+        return basket.getBasket();
     }
 }

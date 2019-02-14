@@ -9,4 +9,8 @@ public class OrderDaoImpl implements OrderDao {
 
     private List<Order> orders = new ArrayList<>();
 
+    @Override
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
 }
