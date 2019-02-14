@@ -1,10 +1,12 @@
 package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Order;
+import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.ClientService;
 import com.luxoft.korzch.services.OrderService;
 import com.luxoft.korzch.services.ProductService;
 import com.luxoft.korzch.services.SessionService;
+import com.luxoft.korzch.session.LoggedIn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -62,6 +64,7 @@ public class ClientMenu implements Menu {
                         break;
                     }
                     case "9": {
+                        sessionService.logOut();
                         isRunning = false;
                         break;
                     }
@@ -79,24 +82,10 @@ public class ClientMenu implements Menu {
         }
     }
 
-    private void showOrders() {
-        String clientId = sessionService.isClientLoggedIn();
-        if (isNotNull(clientId)) {
-            List<Order> orders = orderService.getClientOrders(clientId);
-            if (isNotEmpty(orders)) {
-                orders.forEach(order -> System.out.println(order.toString()));
-            } else {
-                System.out.println("Sorry, You don't have orders");
-            }
-        } else {
-            System.out.println("Please Log In");
-        }
-    }
-
     private void login() throws IOException {
         System.out.println("input client id");
         String id = reader.readLine();
-        boolean success = clientService.loginClient(id);
+        boolean success = sessionService.loginClient(id);
         if (success) {
             System.out.println("You are logged in. Well come!!!");
         } else {
@@ -104,20 +93,72 @@ public class ClientMenu implements Menu {
         }
     }
 
-    private void removeProductFromBasket() {
-        //todo removeProductFromBasket
+    private void showOrders() throws IOException {
+        isClientLoggedIn(clientId -> {
+            List<Order> orders = orderService.getClientOrders(clientId);
+            if (isNotEmpty(orders)) {
+                orders.forEach(order -> System.out.println(order.toString()));
+            } else {
+                System.out.println("Sorry, You don't have orders");
+            }
+        });
     }
 
-    private void showBasket() {
-        //todo showBasket
+    private void removeProductFromBasket() throws IOException {
+        isClientLoggedIn(clientId -> {
+            System.out.println("input product id");
+            String id = reader.readLine();
+            boolean success = clientService.removeProductFromBasket(id);
+            if(success){
+                System.out.println("Product has been removed from you basket");
+            }else {
+                System.out.println("Product hasn't been found in you basket");
+            }
+        });
     }
 
-    private void addProductToBasket() {
-        //todo addProductToBasket()
+    private void showBasket() throws IOException {
+        isClientLoggedIn(clientId -> {
+            List<Product> products = clientService.getBasket(clientId);
+            if (isNotEmpty(products)) {
+                products.forEach(product -> System.out.println(product.toString()));
+            } else {
+                System.out.println("Sorry, You don't have products in your basket");
+            }
+        });
     }
 
-    private void showAllProducts() {
-        //todo showAllProducts
+    private void addProductToBasket() throws IOException {
+        isClientLoggedIn(clientId -> {
+            System.out.println("input product id");
+            String id = reader.readLine();
+            boolean success = clientService.addProductToBasket(id);
+            if(success){
+                System.out.println("Product has been removed from you basket");
+            }else {
+                System.out.println("Products haven't been found in you basket");
+            }
+        });
+    }
+
+    private void showAllProducts() throws IOException {
+        isClientLoggedIn(clientId -> {
+            List<Product> products = productService.getAllProducts();
+            if (isNotEmpty(products)) {
+                products.forEach(product -> System.out.println(product.toString()));
+            } else {
+                System.out.println("Sorry, there are not products in this shop");
+            }
+        });
+    }
+
+    private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
+        String clientId = sessionService.isClientLoggedIn();
+        if (isNotNull(clientId)) {
+            loggedIn.isLoggedIn(clientId);
+        } else {
+            System.out.println("Please Log In");
+        }
     }
 
     private void showMenuPanel() {
@@ -136,3 +177,4 @@ public class ClientMenu implements Menu {
         this.reader = reader;
     }
 }
+

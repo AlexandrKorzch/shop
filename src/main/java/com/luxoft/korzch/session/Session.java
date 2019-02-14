@@ -10,11 +10,13 @@ public class Session {
         return currentClient;
     }
 
-    public void setCurrentClient(Client currentClient) {
+    public boolean setCurrentClient(Client currentClient) {
         this.currentClient = currentClient;
+        return true;
     }
 
-    public void clearSession(){
+    public boolean clearSession() {
         currentClient = null;
+        return true;
     }
 }

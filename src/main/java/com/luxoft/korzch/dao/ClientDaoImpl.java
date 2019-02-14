@@ -59,8 +59,5 @@ public class ClientDaoImpl implements ClientDao {
         return clients;
     }
 
-    @Override
-    public Client findClient(String id) {
-        return null;
-    }
+
 }

@@ -2,9 +2,12 @@ package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.dao.ClientDao;
 import com.luxoft.korzch.domain.Client;
-import com.luxoft.korzch.session.Session;
+import com.luxoft.korzch.domain.Product;
 
 import java.util.List;
+
+import static com.luxoft.korzch.util.Util.ageToInt;
+import static com.luxoft.korzch.util.Util.idToLong;
 
 public class ClientServiceImpl implements ClientService {
 
@@ -22,18 +25,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean removeClient(long id) {
-        return clientDao.removeClient(id);
+    public boolean removeClient(String id) {
+        return clientDao.removeClient(idToLong(id));
     }
 
     @Override
-    public boolean updateClient(long id, String email ,int age) {
-        return clientDao.updateClient(id, email , age);
-    }
-
-    @Override
-    public Client getClient(long id) {
-        return clientDao.getClient(id);
+    public boolean updateClient(String id, String email, String age) {
+        return clientDao.updateClient(idToLong(id), email, ageToInt(age));
     }
 
     @Override
@@ -42,13 +40,22 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean loginClient(String id) {
-        Client client = clientDao.findClient(id);
-        if(client != null){
-            sessionService.setCurrentClient(client);
-            return true;
-        }else {
-            return false;
-        }
+    public boolean removeProductFromBasket(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean addProductToBasket(String id) {
+        return false;
+    }
+
+    @Override
+    public Client getClient(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Product> getBasket(String clientId) {
+        return null;
     }
 }

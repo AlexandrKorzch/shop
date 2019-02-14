@@ -5,7 +5,7 @@ import java.util.List;
 public class Order {
 
     private long id;
-    private Client client;
+    private long clientId;
     private List<Product> products;
 
     public long getId() {
@@ -16,12 +16,12 @@ public class Order {
         this.id = id;
     }
 
-    public Client getClient() {
-        return client;
+    public long getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 
     public List<Product> getProducts() {

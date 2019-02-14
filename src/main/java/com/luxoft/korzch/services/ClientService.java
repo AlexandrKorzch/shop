@@ -1,6 +1,7 @@
 package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.domain.Client;
+import com.luxoft.korzch.domain.Product;
 
 import java.util.List;
 
@@ -24,15 +25,25 @@ public interface ClientService {
     /**
      * todo add documentation
      * */
+    boolean removeProductFromBasket(String id);
+
+    /**
+     * todo add documentation
+     * */
+    boolean addProductToBasket(String id);
+
+    /**
+     * todo add documentation
+     * */
     Client getClient(String id);
 
     /**
      * todo add documentation
      * */
-    List<Client> getAllClients();
+    List<Product> getBasket(String clientId);
 
     /**
      * todo add documentation
      * */
-    boolean loginClient(String id);
+    List<Client> getAllClients();
 }

@@ -32,6 +32,10 @@ public class Util {
         }
     }
 
+    public static String longToString(long id){
+        return Long.toString(id);
+    }
+
     public static boolean isNotEmpty(List<?> list){
         return !list.isEmpty();
     }

@@ -1,5 +1,6 @@
 package com.luxoft.korzch.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Client {
@@ -10,6 +11,9 @@ public class Client {
     private int age;
     private String email;
     private String phone;
+
+    private Basket basket;
+    private List<Order> orders;
 
     public Client(String name,
                   String lastName,
@@ -75,6 +79,22 @@ public class Client {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

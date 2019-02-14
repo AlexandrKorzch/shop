@@ -22,6 +22,8 @@ public class App {
         OrderService orderService = new OrderServiceImpl(orderDao, sessionService);
         ProductService productService = new ProductServiceImpl(productDao);
 
+        sessionService.setClientService(clientService);
+
         AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);
         ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, sessionService);
 
