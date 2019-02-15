@@ -11,6 +11,14 @@ public class ProductDaoImpl implements ProductDao {
 
     private List<Product> products = new ArrayList<>();
 
+    private static final ProductDao instance = new ProductDaoImpl();
+
+    private ProductDaoImpl(){}
+
+    public static ProductDao getInstance(){
+        return instance;
+    }
+
     @Override
     public void addNewProduct(Product product) {
         products.add(product);

@@ -5,22 +5,23 @@ import com.luxoft.korzch.domain.Client;
 public interface SessionService {
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
-    String isClientLoggedIn();
+    long isClientLoggedIn();
 
     /**
-     * todo add documentation
-     * */
-    boolean loginClient(String id);
+     * TODO add documentation
+     *
+     * @param id*/
+    boolean loginClient(long id);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     void logOut();
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     void setClientService(ClientService clientService);
 

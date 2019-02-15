@@ -85,7 +85,7 @@ public class ClientMenu implements Menu {
     private void login() throws IOException {
         System.out.println("input client id");
         String id = reader.readLine();
-        boolean success = sessionService.loginClient(id);
+        boolean success = sessionService.loginClient(idToLong(id));
         if (success) {
             System.out.println("You are logged in. Well come!!!");
         } else {
@@ -94,8 +94,8 @@ public class ClientMenu implements Menu {
     }
 
     private void showOrders() throws IOException {
-        isClientLoggedIn(clientId -> {
-            List<Order> orders = orderService.getClientOrders(clientId);
+        isClientLoggedIn(id -> {
+            List<Order> orders = orderService.getClientOrders(id);
             if (isNotEmpty(orders)) {
                 orders.forEach(order -> System.out.println(order.toString()));
             } else {
@@ -105,9 +105,9 @@ public class ClientMenu implements Menu {
     }
 
     private void removeProductFromBasket() throws IOException {
-        isClientLoggedIn(clientId -> {
+        isClientLoggedIn(id -> {
             System.out.println("input product id");
-            String id = reader.readLine();
+            long inputId = idToLong(reader.readLine());
             boolean success = clientService.removeProductFromBasket(id);
             if(success){
                 System.out.println("Product has been removed from you basket");
@@ -134,7 +134,7 @@ public class ClientMenu implements Menu {
             String id = reader.readLine();
             boolean success = clientService.addProductToBasket(id);
             if(success){
-                System.out.println("Product has been removed from you basket");
+                System.out.println("Product has been added to your4 basket");
             }else {
                 System.out.println("Products haven't been found in you basket");
             }
@@ -153,9 +153,9 @@ public class ClientMenu implements Menu {
     }
 
     private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
-        String clientId = sessionService.isClientLoggedIn();
-        if (isNotNull(clientId)) {
-            loggedIn.isLoggedIn(clientId);
+        long id = sessionService.isClientLoggedIn();
+        if (id >= 0) {
+            loggedIn.isLoggedIn(id);
         } else {
             System.out.println("Please Log In");
         }

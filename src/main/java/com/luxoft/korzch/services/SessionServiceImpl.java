@@ -4,7 +4,6 @@ import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.session.Session;
 
 import static com.luxoft.korzch.util.Util.isNotNull;
-import static com.luxoft.korzch.util.Util.longToString;
 
 public class SessionServiceImpl implements SessionService {
 
@@ -16,17 +15,17 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public String isClientLoggedIn() {
+    public long isClientLoggedIn() {
         Client currentClient = session.getCurrentClient();
         if (isNotNull(currentClient)) {
-            return longToString(currentClient.getId());
+            return currentClient.getId();
         } else {
-            return null;
+            return -1;
         }
     }
 
     @Override
-    public boolean loginClient(String id) {
+    public boolean loginClient(long id) {
         Client client = clientService.getClient(id);
         if (isNotNull(client)) {
             return session.setCurrentClient(client);

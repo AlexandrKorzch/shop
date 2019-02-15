@@ -1,7 +1,9 @@
 package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.dao.ClientDao;
+import com.luxoft.korzch.dao.ClientDaoImpl;
 import com.luxoft.korzch.dao.ProductDao;
+import com.luxoft.korzch.dao.ProductDaoImpl;
 import com.luxoft.korzch.domain.Basket;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Product;
@@ -17,9 +19,9 @@ public class ClientServiceImpl implements ClientService {
     private final ProductDao productDao;
     private final SessionService sessionService;
 
-    public ClientServiceImpl(ProductDao productDao, ClientDao clientDao, SessionService sessionService) {
-        this.clientDao = clientDao;
-        this.productDao = productDao;
+    public ClientServiceImpl(SessionService sessionService) {
+        clientDao = ClientDaoImpl.getInstance();
+        productDao = ProductDaoImpl.getInstance();
         this.sessionService = sessionService;
     }
 
@@ -44,11 +46,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean removeProductFromBasket(String productId) {
+    public boolean removeProductFromBasket(long productId) {
         Client client = sessionService.getCurrentClient();
         Basket basket = client.getBasket();
         basket.getBasket().forEach(product1 -> {
-            if(product1.getId() == idToLong(productId)){
+            if(product1.getId() == productId){
                 basket.getBasket().remove(product1);
             }
         });
@@ -65,12 +67,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client getClient(String clientId) {
-        return clientDao.getClient(idToLong(clientId));
+    public Client getClient(long id) {
+        return clientDao.getClient(id);
     }
 
     @Override
-    public List<Product> getBasket(String clientId) {
+    public List<Product> getBasket(long clientId) {
         Client client = sessionService.getCurrentClient();
         Basket basket = client.getBasket();
         return basket.getBasket();

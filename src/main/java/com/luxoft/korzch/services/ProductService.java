@@ -7,17 +7,17 @@ import java.util.List;
 public interface ProductService {
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean addNewProduct(String productName, String productPrice);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean removeProduct(String productId);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     List<Product> getAllProducts();
 }

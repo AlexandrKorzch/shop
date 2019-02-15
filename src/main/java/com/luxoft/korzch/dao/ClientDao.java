@@ -2,32 +2,32 @@ package com.luxoft.korzch.dao;
 
 import com.luxoft.korzch.domain.Client;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface ClientDao {
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean saveClient(Client client);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean removeClient(long id);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean updateClient(long id, String email ,int age);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     Client getClient(long id);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
-    List<Client> getAllClients();
+    ArrayList<Client> getAllClients();
 }

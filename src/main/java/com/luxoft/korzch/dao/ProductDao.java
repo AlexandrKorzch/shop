@@ -7,22 +7,22 @@ import java.util.List;
 public interface ProductDao {
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     void addNewProduct(Product product);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     void removeProduct(String productId);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     List<Product> getAllProducts();
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     Product getProduct(long productId);
 }

@@ -8,42 +8,45 @@ import java.util.List;
 public interface ClientService {
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean createClient(String name, String lastName, String phone);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean removeClient(String id);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean updateClient(String id, String email , String age);
 
     /**
-     * todo add documentation
-     * */
-    boolean removeProductFromBasket(String id);
+     * TODO add documentation
+     *
+     * @param id*/
+    boolean removeProductFromBasket(long id);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     boolean addProductToBasket(String id);
 
     /**
-     * todo add documentation
-     * */
-    Client getClient(String id);
+     * TODO add documentation
+     *
+     * @param id*/
+    Client getClient(long id);
 
     /**
-     * todo add documentation
-     * */
-    List<Product> getBasket(String clientId);
+     * TODO add documentation
+     *
+     * @param clientId*/
+    List<Product> getBasket(long clientId);
 
     /**
-     * todo add documentation
+     * TODO add documentation
      * */
     List<Client> getAllClients();
 }

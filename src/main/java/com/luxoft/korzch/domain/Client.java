@@ -3,6 +3,8 @@ package com.luxoft.korzch.domain;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 public class Client {
 
     private long id;
@@ -82,6 +84,9 @@ public class Client {
     }
 
     public Basket getBasket() {
+        if(isNull(basket)){
+            basket = new Basket();
+        }
         return basket;
     }
 

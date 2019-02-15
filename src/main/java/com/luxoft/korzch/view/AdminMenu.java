@@ -10,8 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-import static com.luxoft.korzch.util.Util.closeProgram;
-import static com.luxoft.korzch.util.Util.isNotEmpty;
+import static com.luxoft.korzch.util.Util.*;
 
 public class AdminMenu implements Menu {
 
@@ -87,8 +86,8 @@ public class AdminMenu implements Menu {
 
     private void showClientOrders() throws IOException {
         System.out.println("enter client id");
-        String clientId = reader.readLine();
-        List<Order> ordersList = orderService.getClientOrders(clientId);
+        long id = idToLong(reader.readLine());
+        List<Order> ordersList = orderService.getClientOrders(id);
         if(isNotEmpty(ordersList)){
             ordersList.forEach(order -> System.out.println(order.toString()));
         }else {
@@ -141,7 +140,7 @@ public class AdminMenu implements Menu {
 
     private void getClient() throws IOException {
         System.out.println("input client id");
-        String id = reader.readLine();
+        long id = idToLong(reader.readLine());
         Client client = clientService.getClient(id);
         if (client != null) {
             System.out.println(client.toString());

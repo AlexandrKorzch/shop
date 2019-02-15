@@ -3,58 +3,54 @@ package com.luxoft.korzch.dao;
 import com.luxoft.korzch.domain.Client;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientDaoImpl implements ClientDao {
 
-    private List<Client> clients = new ArrayList<>();
+    private Map<Long, Client> clients = new HashMap<>();
+    private static long id = 0;
+
+    private static final ClientDao instance = new ClientDaoImpl();
+
+    private ClientDaoImpl(){}
+
+    public static ClientDao getInstance(){
+        return instance;
+    }
 
     @Override
     public boolean saveClient(Client client) {
-        client.setId(clients.size()+1);
-        clients.add(client);
+        clients.put(id, client);
+        id++;
         return true;
     }
 
     @Override
     public boolean removeClient(long id) {
-        for (Client client : clients) {
-            if (client.getId() == id) {
-                clients.remove(client);
-                return true;
-            }
-        }
-        return false;
+        clients.remove(id);
+        return true;
     }
 
     @Override
-    public boolean updateClient(long id, String email ,int age) {
-        for (Client client : clients) {
-            if (client.getId() == id) {
-                if (age > 0) {
-                    client.setAge(client.getAge());
-                }
-                if (email != null) {
-                    client.setEmail(client.getEmail());
-                }
-                return true;
-            }
+    public boolean updateClient(long id, String email, int age) {
+        Client client = clients.get(id);
+        if (age > 0) {
+            client.setAge(client.getAge());
         }
-        return false;
+        if (email != null) {
+           client.setEmail(client.getEmail());
+        }
+        return true;
     }
 
     @Override
     public Client getClient(long id) {
-        for (Client client : clients) {
-            if (client.getId() == id) {
-                return client;
-            }
-        }
-        return null;
+        return clients.get(id);
     }
 
     @Override
-    public List<Client> getAllClients() {
-        return clients;
+    public ArrayList<Client> getAllClients() {
+        return new ArrayList<>(clients.values());
     }
 }
