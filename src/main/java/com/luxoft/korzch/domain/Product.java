@@ -6,7 +6,7 @@ public class Product {
     private String name;
     private double price;
 
-    public Product(String productName, float productPrice) {
+    public Product(String productName, double productPrice) {
         this.name = productName;
         this.price = productPrice;
     }

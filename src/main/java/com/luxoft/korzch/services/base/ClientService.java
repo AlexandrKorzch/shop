@@ -10,62 +10,40 @@ public interface ClientService<T extends Client> extends Common<T> {
     /**
      * TODO add documentation
      */
-    List<T> getAllClients();
-
     boolean removeClient(long id);
 
-    T getClient(long id);
+    /**
+     * TODO add documentation
+     */
+    boolean updateClient(long id, String email, int age);
 
-    boolean updateClient(long id, String email, String age);
-
-    boolean createClient(String name, String lastName, String phone);
-
+    /**
+     * TODO add documentation
+     */
     boolean removeProductFromBasket(long id);
 
-    List<T> getBasket(long clientId);
-
+    /**
+     * TODO add documentation
+     */
     boolean addProductToBasket(long id);
 
+    /**
+     * TODO add documentation
+     */
     long createClient(T client);
 
+    /**
+     * TODO add documentation
+     */
+    T getClient(long id);
 
-//    boolean createClient(String name, String lastName, String phone);
-//
-//    /**
-//     * TODO add documentation
-//     * */
-//    boolean removeClient(String id);
-//
-//    /**
-//     * TODO add documentation
-//     * */
-//    boolean updateClient(String id, String email , String age);
-//
-//    /**
-//     * TODO add documentation
-//     *
-//     * @param id*/
-//    boolean removeProductFromBasket(long id);
-//
-//    /**
-//     * TODO add documentation
-//     * */
-//    boolean addProductToBasket(String id);
-//
-//    /**
-//     * TODO add documentation
-//     *
-//     * @param id*/
-//    Client getClient(long id);
-//
-//    /**
-//     * TODO add documentation
-//     *
-//     * @param clientId*/
-//    List<Product> getBasket(long clientId);
-//
-//    /**
-//     * TODO add documentation
-//     * */
-//    List<Client> getAllClients();
+    /**
+     * TODO add documentation
+     */
+    List<T> getBasket(long clientId);
+
+    /**
+     * TODO add documentation
+     */
+    List<T> getAllClients();
 }

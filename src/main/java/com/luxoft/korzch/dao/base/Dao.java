@@ -30,10 +30,10 @@ public abstract class Dao<T> implements Common<T> {
     }
 
     @Override
-    public long update(T item) {
+    public boolean update(T item) {
         long key = items.getKey(item);
         items.put(key, item);
-        return key;
+        return true;
     }
 
     @Override

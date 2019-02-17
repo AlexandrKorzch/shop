@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface ProductService<T extends Product> extends Common<T> {
 
-    boolean removeProduct(long id);
-
-    boolean addNewProduct(String productName, String productPrice);
-
-    List<T> getAllProducts();
+//    boolean removeProduct(long id);
+//
+//    boolean addNewProduct(String productName, String productPrice);
+//
+//    List<T> getAllProducts();
 
 
 //    /**

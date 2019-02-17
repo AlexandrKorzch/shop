@@ -4,11 +4,17 @@ import com.luxoft.korzch.dao.base.ClientDao;
 import com.luxoft.korzch.dao.base.ProductDao;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Product;
+import com.luxoft.korzch.exceptions.UnrealAgeException;
+import com.luxoft.korzch.exceptions.WrongEmailException;
+import com.luxoft.korzch.exceptions.WrongPhoneException;
 import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.Service;
 import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.valivator.ValidationService;
 
 import java.util.List;
+
+import static com.luxoft.korzch.common.Constants.FAIL;
 
 public class ClientServiceImpl<T extends Client> extends Service<T> implements ClientService<T> {
 
@@ -27,13 +33,28 @@ public class ClientServiceImpl<T extends Client> extends Service<T> implements C
 
     @Override
     public long createClient(T client) {
-
-        return dao.create(client);
+        try {
+            ValidationService.validatePhone(client.getPhone());
+            return dao.create(client);
+        } catch (WrongPhoneException e) {
+            e.printStackTrace();
+            return FAIL;
+        }
     }
 
     @Override
-    public boolean updateClient(long id, String email, String age) {
-        return false;
+    public boolean updateClient(long id, String email, int age) {
+        try {
+            ValidationService.validateAge(age);
+            ValidationService.validateEmail(email);
+            T client = dao.get(id);
+            client.setEmail(email);
+            client.setAge(age);
+            return update(client);
+        } catch (UnrealAgeException | WrongEmailException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -57,12 +78,6 @@ public class ClientServiceImpl<T extends Client> extends Service<T> implements C
     }
 
 
-
-    @Override
-    public boolean createClient(String name, String lastName, String phone) {
-        return false;
-    }
-
     @Override
     public boolean removeProductFromBasket(long id) {
         return false;
@@ -77,6 +92,7 @@ public class ClientServiceImpl<T extends Client> extends Service<T> implements C
     public boolean delete(long id) {
         return false;
     }
+
 
     //    @Override
 //    public List<Product> getBasket(long clientId) {

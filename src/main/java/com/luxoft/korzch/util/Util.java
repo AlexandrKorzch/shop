@@ -26,31 +26,31 @@ public class Util {
         }
     }
 
-    public static float priceToFloat(String price) {
+    public static double priceToDouble(String price) {
         try {
-            return Float.parseFloat(price);
+            return Double.parseDouble(price);
         } catch (NumberFormatException e) {
             return -1;
         }
     }
 
-    public static String longToString(long id){
+    public static String longToString(long id) {
         return Long.toString(id);
     }
 
-    public static boolean isNotEmpty(List<?> list){
-        if(list == null){
+    public static boolean isNotEmpty(List<?> list) {
+        if (list == null) {
             return true;
-        }else {
+        } else {
             return !list.isEmpty();
         }
     }
 
-    public static boolean isNotNull(Object object){
+    public static boolean isNotNull(Object object) {
         return object != null;
     }
 
-    public static boolean succsess(long id){
+    public static boolean successId(long id) {
         return id > FAIL;
     }
 }

@@ -15,7 +15,7 @@ public interface CRUD<T> {
     /**
      * TODO add documentation
      */
-    long update(T item);
+    boolean update(T item);
 
     /**
      * TODO add documentation

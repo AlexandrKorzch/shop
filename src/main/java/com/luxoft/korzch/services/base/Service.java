@@ -20,7 +20,7 @@ public abstract class Service<T> implements Common<T> {
     }
 
     @Override
-    public long update(T item) {
+    public boolean update(T item) {
         return dao.update(item);
     }
 

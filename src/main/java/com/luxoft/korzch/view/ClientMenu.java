@@ -143,7 +143,7 @@ public class ClientMenu implements Menu {
 
     private void showAllProducts() throws IOException {
         isClientLoggedIn(clientId -> {
-            List<Product> products = productService.getAllProducts();
+            List products = productService.getAll();
             if (isNotEmpty(products)) {
                 products.forEach(product -> System.out.println(product.toString()));
             } else {

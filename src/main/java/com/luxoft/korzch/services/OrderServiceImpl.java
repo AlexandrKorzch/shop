@@ -29,6 +29,10 @@ public class OrderServiceImpl<T extends Order> extends Service<T> implements Ord
         return false;
     }
 
+    @Override
+    public long addOrder(Order order, long clientId) {
+        return 0;
+    }
 
     //    @Override
 //    public List<Order> getClientOrders(long clientId) {
