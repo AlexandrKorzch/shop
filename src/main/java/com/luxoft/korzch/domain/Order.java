@@ -2,19 +2,10 @@ package com.luxoft.korzch.domain;
 
 import java.util.List;
 
-public class Order {
+public class Order extends Model{
 
-    private long id;
     private long clientId;
     private List<Product> products;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public long getClientId() {
         return clientId;
@@ -35,7 +26,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", clientId=" + clientId +
                 ", products=" + products +
                 '}';

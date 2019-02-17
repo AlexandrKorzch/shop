@@ -14,7 +14,7 @@ public class Util {
         try {
             return Long.parseLong(stringId);
         } catch (NumberFormatException e) {
-            return -1;
+            return FAIL;
         }
     }
 
@@ -22,7 +22,7 @@ public class Util {
         try {
             return Integer.parseInt(age);
         } catch (NumberFormatException e) {
-            return -1;
+            return (int) FAIL;
         }
     }
 
@@ -30,17 +30,13 @@ public class Util {
         try {
             return Double.parseDouble(price);
         } catch (NumberFormatException e) {
-            return -1;
+            return FAIL;
         }
-    }
-
-    public static String longToString(long id) {
-        return Long.toString(id);
     }
 
     public static boolean isNotEmpty(List<?> list) {
         if (list == null) {
-            return true;
+            return false;
         } else {
             return !list.isEmpty();
         }

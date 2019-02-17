@@ -1,6 +1,7 @@
 package com.luxoft.korzch.dao.base;
 
 import com.luxoft.korzch.base.Common;
+import com.luxoft.korzch.domain.Model;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 import static com.luxoft.korzch.util.Util.isNotNull;
 
-public abstract class Dao<T> implements Common<T> {
+public abstract class Dao<T extends Model> implements Common<T> {
 
     protected BidiMap<Long, T> items = new DualHashBidiMap<>();
 
@@ -25,6 +26,7 @@ public abstract class Dao<T> implements Common<T> {
     @Override
     public long create(T item) {
         long id = nextId();
+        item.setId(id);
         items.put(id, item);
         return id;
     }

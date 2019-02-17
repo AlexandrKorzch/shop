@@ -3,18 +3,9 @@ package com.luxoft.korzch.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Basket {
+public class Basket extends Model{
 
-    private long id;
     private List<Product> items = new ArrayList<>();
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getId() {
-        return id;
-    }
 
     public List<Product> getItems() {
         return items;
@@ -27,7 +18,7 @@ public class Basket {
     @Override
     public String toString() {
         return "Basket{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", items=" + items +
                 '}';
     }

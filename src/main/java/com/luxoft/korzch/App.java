@@ -26,15 +26,15 @@ public class App {
 
     public static void main(String[] args) {
 
-        Session session = new Session<>();
+        Session<Client> session = new Session<>();
 
-        ProductDao<Product> productDao = new ProductDaoImpl();
-        ClientDao<Client> clientDao = new ClientDaoImpl();
-        OrderDao<Order> orderDao = new OrderDaoImpl();
+        ProductDao<Product> productDao = new ProductDaoImpl<>();
+        ClientDao<Client> clientDao = new ClientDaoImpl<>();
+        OrderDao<Order> orderDao = new OrderDaoImpl<>();
 
         SessionService sessionService = new SessionServiceImpl(session);
 
-        ClientService clientService = new ClientServiceImpl<>(sessionService, clientDao, productDao);
+        ClientService<Client> clientService = new ClientServiceImpl<>(sessionService, clientDao, productDao);
         OrderService orderService = new OrderServiceImpl<>(sessionService, orderDao);
         ProductService productService = new ProductServiceImpl<>(productDao);
 

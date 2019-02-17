@@ -23,8 +23,10 @@ public interface SessionService {
     /**
      * TODO add documentation
      * */
-    void setClientService(ClientService clientService);
-
     Client getCurrentClient();
 
+    /**
+     * TODO add documentation
+     * */
+    void setClientService(ClientService clientService);
 }

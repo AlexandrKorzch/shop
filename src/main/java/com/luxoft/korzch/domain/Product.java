@@ -1,22 +1,13 @@
 package com.luxoft.korzch.domain;
 
-public class Product {
+public class Product extends Model{
 
-    private long id;
     private String name;
     private double price;
 
     public Product(String productName, double productPrice) {
         this.name = productName;
         this.price = productPrice;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -38,7 +29,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';

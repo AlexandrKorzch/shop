@@ -14,12 +14,12 @@ import static com.luxoft.korzch.util.Util.*;
 
 public class AdminMenu implements Menu {
 
-    private final ClientService clientService;
+    private final ClientService<Client> clientService;
     private final ProductService productService;
     private final OrderService orderService;
     private BufferedReader reader;
 
-    public AdminMenu(ClientService clientService,
+    public AdminMenu(ClientService<Client> clientService,
                      ProductService productService,
                      OrderService orderService) {
         this.clientService = clientService;
@@ -84,6 +84,7 @@ public class AdminMenu implements Menu {
         }
     }
 
+    //1
     private void createClient() throws IOException {
         System.out.println("input name");
         String name = reader.readLine();
@@ -91,7 +92,7 @@ public class AdminMenu implements Menu {
         String lastName = reader.readLine();
         System.out.println("input phone in format (000)-000-00-00");
         String phone = reader.readLine();
-        long clientId = clientService.createClient(new Client(name, lastName, phone));
+        long clientId = clientService.create(new Client(name, lastName, phone));
         if (successId(clientId)) {
             System.out.println("Client has been created with id - " + clientId);
         } else {
@@ -99,6 +100,7 @@ public class AdminMenu implements Menu {
         }
     }
 
+    //2
     private void modifyClient() throws IOException {
         System.out.println("input client id");
         String clientId = reader.readLine();
@@ -106,7 +108,7 @@ public class AdminMenu implements Menu {
         String email = reader.readLine();
         System.out.println("input age");
         String age = reader.readLine();
-        boolean success = clientService.updateClient(idToLong(clientId), email, ageToInt(age));
+        boolean success = clientService.update(idToLong(clientId), email, ageToInt(age));
         if (success) {
             System.out.println("Client has been updated");
         } else {
@@ -114,29 +116,41 @@ public class AdminMenu implements Menu {
         }
     }
 
-
-    private void showClientOrders() throws IOException {
-        System.out.println("enter client id");
+    //3
+    private void getClient() throws IOException {
+        System.out.println("input client id");
         long id = idToLong(reader.readLine());
-        List ordersList = orderService.getClientOrders(id);
-        if (isNotEmpty(ordersList)) {
-            ordersList.forEach(order -> System.out.println(order.toString()));
+        Client client = clientService.get(id);
+        if (client != null) {
+            System.out.println(client.toString());
         } else {
-            System.out.println("This client don't have any orders");
+            System.out.println("Client hasn't been found");
         }
     }
 
-    private void removeProduct() throws IOException {
-        System.out.println("enter product id");
-        String productId = reader.readLine();
-        boolean success = productService.delete(idToLong(productId));
+    //4
+    private void removeClient() throws IOException {
+        System.out.println("input client id");
+        String clientId = reader.readLine();
+        boolean success = clientService.delete(idToLong(clientId));
         if (success) {
-            System.out.println("product has been removed");
+            System.out.println("Client has been removed");
         } else {
-            System.out.println("product hasn't been removed");
+            System.out.println("Client hasn't been found");
         }
     }
 
+    //5
+    private void getAllClients() {
+        List clients = clientService.getAll();
+        clients.forEach(client -> System.out.println(client.toString()));
+        if (clients.isEmpty()) {
+            System.out.println("Sorry, there are not clients in the database");
+        }
+    }
+
+
+    //6
     private void addProduct() throws IOException {
         System.out.println("add product name");
         String productName = reader.readLine();
@@ -150,40 +164,32 @@ public class AdminMenu implements Menu {
         }
     }
 
-    private void removeClient() throws IOException {
-        System.out.println("input client id");
-        String clientId = reader.readLine();
-        boolean success = clientService.removeClient(idToLong(clientId));
+
+    //7
+    private void removeProduct() throws IOException {
+        System.out.println("enter product id");
+        String productId = reader.readLine();
+        boolean success = productService.delete(idToLong(productId));
         if (success) {
-            System.out.println("Client has been removed");
+            System.out.println("product has been removed");
         } else {
-            System.out.println("Client hasn't been found");
+            System.out.println("product hasn't been removed");
         }
     }
 
-    private void getAllClients() {
-        List clients = clientService.getAllClients();
-        clients.forEach(client -> System.out.println(client.toString()));
-        if (clients.isEmpty()) {
-            System.out.println("Sorry, there are not clients in the database");
-        }
-    }
-
-    private void getClient() throws IOException {
-        System.out.println("input client id");
+    //8
+    private void showClientOrders() throws IOException {
+        System.out.println("enter client id");
         long id = idToLong(reader.readLine());
-        Client client = clientService.getClient(id);
-        if (client != null) {
-            System.out.println(client.toString());
+        List ordersList = orderService.getClientOrders(id);
+        if (isNotEmpty(ordersList)) {
+            ordersList.forEach(order -> System.out.println(order.toString()));
         } else {
-            System.out.println("Client hasn't been found");
+            System.out.println("This client don't have any orders");
         }
     }
-
 
     private void showMenuPanel() {
-        System.out.println();
-        System.out.println();
         System.out.println();
         System.out.println("-------Admin menu------");
         System.out.println("1. Add client");

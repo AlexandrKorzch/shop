@@ -1,13 +1,13 @@
 package com.luxoft.korzch.services.base;
 
 import com.luxoft.korzch.base.Common;
-import com.luxoft.korzch.dao.base.Dao;
+import com.luxoft.korzch.domain.Model;
 
 import java.util.ArrayList;
 
-public abstract class Service<T> implements Common<T> {
+public abstract class Service<D extends Common<T>, T extends Model> implements Common<T> {
 
-    protected Dao<T> dao;
+    protected D dao;
 
     @Override
     public T get(long id) {
@@ -31,10 +31,6 @@ public abstract class Service<T> implements Common<T> {
 
     @Override
     public ArrayList<T> getAll() {
-        return null;
-    }
-
-    protected void setCommonDao(Common<T> dao) {
-        this.dao = (Dao<T>) dao;
+        return dao.getAll();
     }
 }
