@@ -5,7 +5,9 @@ import com.luxoft.korzch.domain.Model;
 
 import java.util.ArrayList;
 
-public abstract class Service<D extends Common<T>, T extends Model> implements Common<T> {
+public abstract class Service<D
+        extends Common<T>, T extends Model>
+        implements Common<T> {
 
     protected D dao;
 
