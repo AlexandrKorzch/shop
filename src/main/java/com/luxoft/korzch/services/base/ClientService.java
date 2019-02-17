@@ -1,6 +1,5 @@
 package com.luxoft.korzch.services.base;
 
-import com.luxoft.korzch.base.CRUD;
 import com.luxoft.korzch.base.Common;
 import com.luxoft.korzch.domain.Client;
 
@@ -26,6 +25,8 @@ public interface ClientService<T extends Client> extends Common<T> {
     List<T> getBasket(long clientId);
 
     boolean addProductToBasket(long id);
+
+    long createClient(T client);
 
 
 //    boolean createClient(String name, String lastName, String phone);

@@ -28,9 +28,9 @@ public class AdminMenu implements Menu {
 
     @Override
     public void showMenu() {
+        showMenuPanel();
         boolean isRunning = true;
         while (isRunning) {
-            showMenuPanel();
             try {
                 switch (reader.readLine()) {
                     case "1": {
@@ -83,13 +83,28 @@ public class AdminMenu implements Menu {
         }
     }
 
+    private void createClient() throws IOException {
+        System.out.println("input name");
+        String name = reader.readLine();
+        System.out.println("input last name");
+        String lastName = reader.readLine();
+        System.out.println("input phone");
+        String phone = reader.readLine();
+        long clientId = clientService.createClient(new Client(name, lastName, phone));
+        if (succsess(clientId)) {
+            System.out.println("Client has been created with id - " + clientId);
+        } else {
+            System.out.println("Sorry we can't create such client");
+        }
+    }
+
     private void showClientOrders() throws IOException {
         System.out.println("enter client id");
         long id = idToLong(reader.readLine());
         List ordersList = orderService.getClientOrders(id);
-        if(isNotEmpty(ordersList)){
+        if (isNotEmpty(ordersList)) {
             ordersList.forEach(order -> System.out.println(order.toString()));
-        }else {
+        } else {
             System.out.println("This client don't have any orders");
         }
     }
@@ -98,9 +113,9 @@ public class AdminMenu implements Menu {
         System.out.println("enter product id");
         String productId = reader.readLine();
         boolean success = productService.removeProduct(idToLong(productId));
-        if(success){
+        if (success) {
             System.out.println("product has been removed");
-        }else {
+        } else {
             System.out.println("product hasn't been removed");
         }
     }
@@ -111,9 +126,9 @@ public class AdminMenu implements Menu {
         System.out.println("add product price");
         String productPrice = reader.readLine();
         boolean success = productService.addNewProduct(productName, productPrice);
-        if(success){
+        if (success) {
             System.out.println("new product has been added");
-        }else {
+        } else {
             System.out.println("unfortunately product can't be added");
         }
     }
@@ -163,20 +178,6 @@ public class AdminMenu implements Menu {
         }
     }
 
-    private void createClient() throws IOException {
-        System.out.println("input name");
-        String name = reader.readLine();
-        System.out.println("input last name");
-        String lastName = reader.readLine();
-        System.out.println("input phone");
-        String phone = reader.readLine();
-        boolean success = clientService.createClient(name, lastName, phone);
-        if (success) {
-            System.out.println("Client has been created");
-        } else {
-            System.out.println("Sorry we can't create such client");
-        }
-    }
 
     private void showMenuPanel() {
         System.out.println();

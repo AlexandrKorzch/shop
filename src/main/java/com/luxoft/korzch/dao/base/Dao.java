@@ -24,9 +24,9 @@ public abstract class Dao<T> implements Common<T> {
 
     @Override
     public long create(T item) {
-        long nextId = nextId();
-        items.put(nextId, item);
-        return nextId;
+        long id = nextId();
+        items.put(id, item);
+        return id;
     }
 
     @Override

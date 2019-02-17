@@ -2,6 +2,8 @@ package com.luxoft.korzch.util;
 
 import java.util.List;
 
+import static com.luxoft.korzch.common.Constants.FAIL;
+
 public class Util {
 
     public static void closeProgram() {
@@ -46,5 +48,9 @@ public class Util {
 
     public static boolean isNotNull(Object object){
         return object != null;
+    }
+
+    public static boolean succsess(long id){
+        return id > FAIL;
     }
 }

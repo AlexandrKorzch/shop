@@ -26,6 +26,12 @@ public class ClientServiceImpl<T extends Client> extends Service<T> implements C
     }
 
     @Override
+    public long createClient(T client) {
+
+        return dao.create(client);
+    }
+
+    @Override
     public boolean updateClient(long id, String email, String age) {
         return false;
     }
@@ -49,6 +55,8 @@ public class ClientServiceImpl<T extends Client> extends Service<T> implements C
     public T getClient(long id) {
         return null;
     }
+
+
 
     @Override
     public boolean createClient(String name, String lastName, String phone) {

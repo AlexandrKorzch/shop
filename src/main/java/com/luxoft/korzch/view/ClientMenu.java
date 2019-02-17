@@ -34,9 +34,9 @@ public class ClientMenu implements Menu {
 
     @Override
     public void showMenu() {
+        showMenuPanel();
         boolean isRunning = true;
         while (isRunning) {
-            showMenuPanel();
             try {
                 switch (reader.readLine()) {
                     case "1": {
