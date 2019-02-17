@@ -1,36 +1,36 @@
 package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.dao.base.OrderDao;
-import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
+import com.luxoft.korzch.services.base.OrderService;
+import com.luxoft.korzch.services.base.Service;
+import com.luxoft.korzch.services.base.SessionService;
 
-import java.util.List;
-
-import static com.luxoft.korzch.util.Util.isNotNull;
-
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl<T extends Order> extends Service<T> implements OrderService<T> {
 
     private final OrderDao orderDao;
     private final SessionService sessionService;
 
-    public OrderServiceImpl(SessionService sessionService, OrderDao orderDao) {
-        this.orderDao = orderDao;
+    public OrderServiceImpl(SessionService sessionService, OrderDao<T> orderDao) {
+        setCommonDao(orderDao);
+        this.orderDao  = orderDao;
         this.sessionService = sessionService;
     }
 
-    @Override
-    public List<Order> getClientOrders(long clientId) {
-        Client client = sessionService.getCurrentClient();
-        if(isNotNull(client)){
-            return client.getOrders();
-        }else {
-            return null;
-        }
-    }
 
-    @Override
-    public void addOrder(Order order, long clientId) {
-        order.setClientId(clientId);
-        orderDao.addOrder(order);
-    }
+//    @Override
+//    public List<Order> getClientOrders(long clientId) {
+//        Client client = sessionService.getCurrentClient();
+//        if(isNotNull(client)){
+//            return client.getOrders();
+//        }else {
+//            return null;
+//        }
+//    }
+//
+//    @Override
+//    public void addOrder(Order order, long clientId) {
+//        order.setClientId(clientId);
+//        orderDao.addOrder(order);
+//    }
 }

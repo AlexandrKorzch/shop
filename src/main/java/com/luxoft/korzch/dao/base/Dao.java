@@ -1,5 +1,7 @@
 package com.luxoft.korzch.dao.base;
 
+import com.luxoft.korzch.base.CRUD;
+import com.luxoft.korzch.base.Common;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 

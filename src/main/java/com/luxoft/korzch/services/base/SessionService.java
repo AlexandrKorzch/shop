@@ -1,4 +1,4 @@
-package com.luxoft.korzch.services;
+package com.luxoft.korzch.services.base;
 
 import com.luxoft.korzch.domain.Client;
 

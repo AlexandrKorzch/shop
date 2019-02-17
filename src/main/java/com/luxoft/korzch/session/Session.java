@@ -2,15 +2,15 @@ package com.luxoft.korzch.session;
 
 import com.luxoft.korzch.domain.Client;
 
-public class Session {
+public class Session<T extends Client> {
 
-    private Client currentClient;
+    private T currentClient;
 
-    public Client getCurrentClient() {
+    public T getCurrentClient() {
         return currentClient;
     }
 
-    public boolean setCurrentClient(Client currentClient) {
+    public boolean setCurrentClient(T currentClient) {
         this.currentClient = currentClient;
         return true;
     }

@@ -1,8 +1,8 @@
 package com.luxoft.korzch.dao.base;
 
-import com.luxoft.korzch.domain.Order;
+import com.luxoft.korzch.base.Common;
 
-public interface OrderDao<T extends Order> extends CRUD<T>, Common<T> {
+public interface OrderDao<T> extends Common<T> {
 
 
 }

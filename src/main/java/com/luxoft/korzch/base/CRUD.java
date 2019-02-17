@@ -1,4 +1,4 @@
-package com.luxoft.korzch.dao.base;
+package com.luxoft.korzch.base;
 
 public interface CRUD<T> {
 

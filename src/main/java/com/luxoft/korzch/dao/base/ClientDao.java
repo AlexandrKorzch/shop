@@ -1,5 +1,7 @@
 package com.luxoft.korzch.dao.base;
 
-public interface ClientDao<T> {
+import com.luxoft.korzch.base.Common;
+
+public interface ClientDao<T> extends Common<T> {
 
 }
