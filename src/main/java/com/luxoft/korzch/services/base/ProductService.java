@@ -6,9 +6,13 @@ import com.luxoft.korzch.domain.Product;
 
 import java.util.List;
 
-public interface ProductService<T> extends Common<T>, CRUD<T> {
+public interface ProductService<T extends Product> extends Common<T> {
 
+    boolean removeProduct(long id);
 
+    boolean addNewProduct(String productName, String productPrice);
+
+    List<T> getAllProducts();
 
 
 //    /**

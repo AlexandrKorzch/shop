@@ -6,6 +6,8 @@ import com.luxoft.korzch.services.base.OrderService;
 import com.luxoft.korzch.services.base.Service;
 import com.luxoft.korzch.services.base.SessionService;
 
+import java.util.List;
+
 public class OrderServiceImpl<T extends Order> extends Service<T> implements OrderService<T> {
 
     private final OrderDao orderDao;
@@ -17,8 +19,18 @@ public class OrderServiceImpl<T extends Order> extends Service<T> implements Ord
         this.sessionService = sessionService;
     }
 
+    @Override
+    public List<T> getClientOrders(long id) {
+        return null;
+    }
 
-//    @Override
+    @Override
+    public boolean delete(long id) {
+        return false;
+    }
+
+
+    //    @Override
 //    public List<Order> getClientOrders(long clientId) {
 //        Client client = sessionService.getCurrentClient();
 //        if(isNotNull(client)){

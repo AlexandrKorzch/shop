@@ -1,13 +1,14 @@
 package com.luxoft.korzch.dao.base;
 
-import com.luxoft.korzch.base.CRUD;
 import com.luxoft.korzch.base.Common;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 import java.util.ArrayList;
 
-public abstract class Dao<T> implements Common<T>, CRUD<T> {
+import static com.luxoft.korzch.util.Util.isNotNull;
+
+public abstract class Dao<T> implements Common<T> {
 
     protected BidiMap<Long, T> items = new DualHashBidiMap<>();
 
@@ -36,10 +37,8 @@ public abstract class Dao<T> implements Common<T>, CRUD<T> {
     }
 
     @Override
-    public long delete(T item) {
-        long key = items.getKey(item);
-        items.remove(key, item);
-        return key;
+    public boolean delete(long id) {
+        return isNotNull(items.remove(id));
     }
 
     private long nextId() {

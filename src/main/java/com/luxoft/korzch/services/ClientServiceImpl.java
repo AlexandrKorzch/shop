@@ -8,6 +8,8 @@ import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.Service;
 import com.luxoft.korzch.services.base.SessionService;
 
+import java.util.List;
+
 public class ClientServiceImpl<T extends Client> extends Service<T> implements ClientService<T> {
 
     private ClientDao<T> clientDao;
@@ -23,48 +25,57 @@ public class ClientServiceImpl<T extends Client> extends Service<T> implements C
         this.sessionService = sessionService;
     }
 
+    @Override
+    public boolean updateClient(long id, String email, String age) {
+        return false;
+    }
+
+    @Override
+    public boolean addProductToBasket(long id) {
+        return false;
+    }
+
+    @Override
+    public List<T> getAllClients() {
+        return getAll();
+    }
+
+    @Override
+    public boolean removeClient(long id) {
+        return delete(id);
+    }
+
+    @Override
+    public T getClient(long id) {
+        return null;
+    }
+
+    @Override
+    public boolean createClient(String name, String lastName, String phone) {
+        return false;
+    }
+
+    @Override
+    public boolean removeProductFromBasket(long id) {
+        return false;
+    }
+
+    @Override
+    public List<T> getBasket(long clientId) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(long id) {
+        return false;
+    }
 
     //    @Override
-//    public boolean createClient(String name, String lastName, String phone) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean removeClient(String id) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean updateClient(String id, String email, String age) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean removeProductFromBasket(long id) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean addProductToBasket(String id) {
-//        return false;
-//    }
-//
-//    @Override
-//    public Client getClient(long id) {
-//        return null;
-//    }
-//
-//    @Override
 //    public List<Product> getBasket(long clientId) {
 //        return null;
 //    }
 //
-//    @Override
-//    public List<Client> getAllClients() {
-//        return null;
-//    }
-
-    //    @Override
+//        @Override
 //    public boolean createClient(String name, String lastName, String phone) {
 //        return clientDao.save(new Client(name, lastName, phone));
 //    }

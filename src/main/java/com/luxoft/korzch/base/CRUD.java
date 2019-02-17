@@ -20,6 +20,6 @@ public interface CRUD<T> {
     /**
      * TODO add documentation
      */
-    long delete(T item);
+    boolean delete(long id);
 
 }

@@ -25,8 +25,8 @@ public abstract class Service<T> implements Common<T> {
     }
 
     @Override
-    public long delete(T item) {
-        return dao.delete(item);
+    public boolean delete(long id) {
+        return dao.delete(id);
     }
 
     @Override

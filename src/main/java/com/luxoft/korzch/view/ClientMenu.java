@@ -94,62 +94,62 @@ public class ClientMenu implements Menu {
     }
 
     private void showOrders() throws IOException {
-//        isClientLoggedIn(id -> {
-//            List<Order> orders = orderService.getClientOrders(id);
-//            if (isNotEmpty(orders)) {
-//                orders.forEach(order -> System.out.println(order.toString()));
-//            } else {
-//                System.out.println("Sorry, You don't have orders");
-//            }
-//        });
+        isClientLoggedIn(id -> {
+            List<Order> orders = orderService.getClientOrders(id);
+            if (isNotEmpty(orders)) {
+                orders.forEach(order -> System.out.println(order.toString()));
+            } else {
+                System.out.println("Sorry, You don't have orders");
+            }
+        });
     }
 
     private void removeProductFromBasket() throws IOException {
-//        isClientLoggedIn(id -> {
-//            System.out.println("input product id");
-//            long inputId = idToLong(reader.readLine());
-//            boolean success = clientService.removeProductFromBasket(id);
-//            if(success){
-//                System.out.println("Product has been removed from you basket");
-//            }else {
-//                System.out.println("Product hasn't been found in you basket");
-//            }
-//        });
+        isClientLoggedIn(id -> {
+            System.out.println("input product id");
+            long inputId = idToLong(reader.readLine());
+            boolean success = clientService.removeProductFromBasket(id);
+            if(success){
+                System.out.println("Product has been removed from you basket");
+            }else {
+                System.out.println("Product hasn't been found in you basket");
+            }
+        });
     }
 
     private void showBasket() throws IOException {
-//        isClientLoggedIn(clientId -> {
-//            List<Product> products = clientService.getBasket(clientId);
-//            if (isNotEmpty(products)) {
-//                products.forEach(product -> System.out.println(product.toString()));
-//            } else {
-//                System.out.println("Sorry, You don't have products in your basket");
-//            }
-//        });
+        isClientLoggedIn(clientId -> {
+            List<Product> products = clientService.getBasket(clientId);
+            if (isNotEmpty(products)) {
+                products.forEach(product -> System.out.println(product.toString()));
+            } else {
+                System.out.println("Sorry, You don't have products in your basket");
+            }
+        });
     }
 
     private void addProductToBasket() throws IOException {
-//        isClientLoggedIn(clientId -> {
-//            System.out.println("input product id");
-//            String id = reader.readLine();
-//            boolean success = clientService.addProductToBasket(id);
-//            if(success){
-//                System.out.println("Product has been added to your4 basket");
-//            }else {
-//                System.out.println("Products haven't been found in you basket");
-//            }
-//        });
+        isClientLoggedIn(clientId -> {
+            System.out.println("input product id");
+            String productId = reader.readLine();
+            boolean success = clientService.addProductToBasket(idToLong(productId));
+            if(success){
+                System.out.println("Product has been added to your4 basket");
+            }else {
+                System.out.println("Products haven't been found in you basket");
+            }
+        });
     }
 
     private void showAllProducts() throws IOException {
-//        isClientLoggedIn(clientId -> {
-//            List<Product> products = productService.getAllProducts();
-//            if (isNotEmpty(products)) {
-//                products.forEach(product -> System.out.println(product.toString()));
-//            } else {
-//                System.out.println("Sorry, there are not products in this shop");
-//            }
-//        });
+        isClientLoggedIn(clientId -> {
+            List<Product> products = productService.getAllProducts();
+            if (isNotEmpty(products)) {
+                products.forEach(product -> System.out.println(product.toString()));
+            } else {
+                System.out.println("Sorry, there are not products in this shop");
+            }
+        });
     }
 
     private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
