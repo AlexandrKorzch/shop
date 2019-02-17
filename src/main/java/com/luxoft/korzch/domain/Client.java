@@ -1,21 +1,16 @@
 package com.luxoft.korzch.domain;
 
-import java.util.List;
 import java.util.Objects;
-
-import static java.util.Objects.isNull;
 
 public class Client {
 
     private long id;
+    private int age;
     private String name;
     private String lastName;
-    private int age;
     private String email;
     private String phone;
-
-    private Basket basket;
-    private List<Order> orders;
+    private Basket basket = new Basket();
 
     public Client(String name,
                   String lastName,
@@ -84,22 +79,11 @@ public class Client {
     }
 
     public Basket getBasket() {
-        if(isNull(basket)){
-            basket = new Basket();
-        }
         return basket;
     }
 
     public void setBasket(Basket basket) {
         this.basket = basket;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 
     @Override

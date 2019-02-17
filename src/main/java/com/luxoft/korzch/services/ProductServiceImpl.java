@@ -1,7 +1,6 @@
 package com.luxoft.korzch.services;
 
-import com.luxoft.korzch.dao.ProductDao;
-import com.luxoft.korzch.dao.ProductDaoImpl;
+import com.luxoft.korzch.dao.base.ProductDao;
 import com.luxoft.korzch.domain.Product;
 
 import java.util.List;
@@ -12,8 +11,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductDao productDao;
 
-    public ProductServiceImpl() {
-        this.productDao = ProductDaoImpl.getInstance();
+    public ProductServiceImpl(ProductDao productDao) {
+        this.productDao = productDao;
     }
 
     @Override

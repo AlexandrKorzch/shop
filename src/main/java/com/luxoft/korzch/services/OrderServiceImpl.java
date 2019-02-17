@@ -1,7 +1,6 @@
 package com.luxoft.korzch.services;
 
-import com.luxoft.korzch.dao.OrderDao;
-import com.luxoft.korzch.dao.OrderDaoImpl;
+import com.luxoft.korzch.dao.base.OrderDao;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
 
@@ -14,8 +13,8 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao;
     private final SessionService sessionService;
 
-    public OrderServiceImpl(SessionService sessionService) {
-        this.orderDao = OrderDaoImpl.getInstance();
+    public OrderServiceImpl(SessionService sessionService, OrderDao orderDao) {
+        this.orderDao = orderDao;
         this.sessionService = sessionService;
     }
 

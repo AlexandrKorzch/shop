@@ -6,39 +6,29 @@ import java.util.List;
 public class Basket {
 
     private long id;
-    private long clientId;
-    private List<Product> basket = new ArrayList<>();
+    private List<Product> items = new ArrayList<>();
 
-    public List<Product> getBasket() {
-        return basket;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public List<Product> getItems() {
+        return items;
     }
 
-    public long getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
-    }
-
-    public void setBasket(List<Product> basket) {
-        this.basket = basket;
+    public void setItems(List<Product> items) {
+        this.items = items;
     }
 
     @Override
     public String toString() {
         return "Basket{" +
                 "id=" + id +
-                ", clientId=" + clientId +
-                ", basket=" + basket +
+                ", items=" + items +
                 '}';
     }
 }
