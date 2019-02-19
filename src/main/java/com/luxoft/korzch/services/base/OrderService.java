@@ -10,7 +10,7 @@ public interface OrderService<T extends Order> extends Common<T> {
     /**
      * TODO add documentation
      * */
-    List<T> getClientOrders(long id);
+    List<T> getClientOrders();
 
     /**
      * TODO add documentation

@@ -1,11 +1,11 @@
 package com.luxoft.korzch.base;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Common<T> extends CRUD<T> {
 
     /**
      * TODO add documentation
      */
-    ArrayList<T> getAll();
+    List<T> getAll();
 }

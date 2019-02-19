@@ -5,7 +5,6 @@ import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.SessionService;
 import com.luxoft.korzch.session.Session;
 
-import static com.luxoft.korzch.common.Constants.FAIL;
 import static com.luxoft.korzch.util.Util.isNotNull;
 
 public class SessionServiceImpl implements SessionService {
@@ -18,22 +17,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public boolean loginClient(long id) {
+    public void loginClient(long id) {
         Client client = (Client) clientService.get(id);
-        if (isNotNull(client)) {
-            return session.setCurrentClient(client);
-        }
-        return false;
+        session.setCurrentClient(client);
     }
 
     @Override
-    public long isClientLoggedIn() {
+    public boolean isClientLoggedIn() {
         Client currentClient = session.getCurrentClient();
-        if (isNotNull(currentClient)) {
-            return currentClient.getId();
-        } else {
-            return FAIL;
-        }
+        return isNotNull(currentClient);
     }
 
     @Override

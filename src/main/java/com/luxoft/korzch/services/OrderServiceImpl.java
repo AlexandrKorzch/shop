@@ -21,8 +21,10 @@ public class OrderServiceImpl<T extends Order>
     }
 
     @Override
-    public List<T> getClientOrders(long id) {
-        return dao.getByClientId(id);
+    public List<T> getClientOrders() {
+        Client client = sessionService.getCurrentClient();
+        long clientId = client.getId();
+        return dao.getByClientId(clientId);
     }
 
     @Override

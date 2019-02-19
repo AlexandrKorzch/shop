@@ -6,6 +6,7 @@ import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.luxoft.korzch.util.Util.isNotNull;
 
@@ -14,7 +15,7 @@ public abstract class Dao<T extends Model> implements Common<T> {
     protected BidiMap<Long, T> items = new DualHashBidiMap<>();
 
     @Override
-    public ArrayList<T> getAll() {
+    public List<T> getAll() {
         return new ArrayList<>(items.values());
     }
 

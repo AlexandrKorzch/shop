@@ -7,5 +7,5 @@ public interface LoggedIn {
     /**
      * TODO add documentation
      * */
-    void isLoggedIn(long clientId) throws IOException;
+    void isLoggedIn() throws IOException;
 }

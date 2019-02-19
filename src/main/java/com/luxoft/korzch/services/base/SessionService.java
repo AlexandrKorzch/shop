@@ -7,13 +7,13 @@ public interface SessionService {
     /**
      * TODO add documentation
      * */
-    long isClientLoggedIn();
+    boolean isClientLoggedIn();
 
     /**
      * TODO add documentation
      *
      * @param id*/
-    boolean loginClient(long id);
+    void loginClient(long id);
 
     /**
      * TODO add documentation

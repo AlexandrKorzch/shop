@@ -86,8 +86,9 @@ public class ClientMenu implements Menu {
         sessionService.logOut();
         System.out.println("input client id");
         String id = reader.readLine();
-        boolean success = sessionService.loginClient(idToLong(id));
-        if (success) {
+        sessionService.loginClient(idToLong(id));
+        boolean loggedIn = sessionService.isClientLoggedIn();
+        if (loggedIn) {
             System.out.println("You are logged in. Well come!!!");
         } else {
             System.out.println("Please contact the Administrator");
@@ -96,9 +97,9 @@ public class ClientMenu implements Menu {
 
     //2
     private void showAllProducts() throws IOException {
-        isClientLoggedIn(clientId -> {
+        isClientLoggedIn(() -> {
             List products = productService.getAll();
-            if (isNotEmpty(products)) {
+            if (isNotNullNotEmpty(products)) {
                 products.forEach(product -> System.out.println(product.toString()));
             } else {
                 System.out.println("Sorry, there are not products in this shop");
@@ -108,7 +109,7 @@ public class ClientMenu implements Menu {
 
     //3
     private void addProductToBasket() throws IOException {
-        isClientLoggedIn(clientId -> {
+        isClientLoggedIn(() -> {
             System.out.println("input product id");
             String productId = reader.readLine();
             boolean success = clientService.addProductToBasket(idToLong(productId));
@@ -122,9 +123,9 @@ public class ClientMenu implements Menu {
 
     //4
     private void showBasket() throws IOException {
-        isClientLoggedIn(clientId -> {
-            List<Product> products = clientService.getBasket(clientId);
-            if (isNotEmpty(products)) {
+        isClientLoggedIn(() -> {
+            List<Product> products = clientService.getBasket();
+            if (isNotNullNotEmpty(products)) {
                 products.forEach(product -> System.out.println(product.toString()));
             } else {
                 System.out.println("Sorry, You don't have products in your basket");
@@ -134,7 +135,7 @@ public class ClientMenu implements Menu {
 
     //5
     private void removeProductFromBasket() throws IOException {
-        isClientLoggedIn(id -> {
+        isClientLoggedIn(() -> {
             System.out.println("input product id");
             long productId = idToLong(reader.readLine());
             boolean success = clientService.removeProductFromBasket(productId);
@@ -148,9 +149,9 @@ public class ClientMenu implements Menu {
 
     //6
     private void showOrders() throws IOException {
-        isClientLoggedIn(id -> {
-            List<Order> orders = orderService.getClientOrders(id);
-            if (isNotEmpty(orders)) {
+        isClientLoggedIn(() -> {
+            List<Order> orders = orderService.getClientOrders();
+            if (isNotNullNotEmpty(orders)) {
                 orders.forEach(order -> System.out.println(order.toString()));
             } else {
                 System.out.println("Sorry, You don't have orders");
@@ -159,9 +160,9 @@ public class ClientMenu implements Menu {
     }
 
     private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
-        long id = sessionService.isClientLoggedIn();
-        if (id >= 0) {
-            loggedIn.isLoggedIn(id);
+        boolean logged = sessionService.isClientLoggedIn();
+        if (logged) {
+            loggedIn.isLoggedIn();
         } else {
             System.out.println("Please Log In");
         }

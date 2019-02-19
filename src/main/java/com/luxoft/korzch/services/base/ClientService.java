@@ -26,6 +26,6 @@ public interface ClientService<T extends Client> extends Common<T> {
     /**
      * TODO add documentation
      */
-    List<Product> getBasket(long clientId);
+    List<Product> getBasket();
 
 }

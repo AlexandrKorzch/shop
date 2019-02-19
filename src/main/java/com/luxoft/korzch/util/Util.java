@@ -34,7 +34,7 @@ public class Util {
         }
     }
 
-    public static boolean isNotEmpty(List<?> list) {
+    public static boolean isNotNullNotEmpty(List<?> list) {
         if (list == null) {
             return false;
         } else {

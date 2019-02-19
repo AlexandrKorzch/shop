@@ -4,6 +4,7 @@ import com.luxoft.korzch.base.Common;
 import com.luxoft.korzch.domain.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Service<D
         extends Common<T>, T extends Model>
@@ -32,7 +33,7 @@ public abstract class Service<D
     }
 
     @Override
-    public ArrayList<T> getAll() {
+    public List<T> getAll() {
         return dao.getAll();
     }
 }
