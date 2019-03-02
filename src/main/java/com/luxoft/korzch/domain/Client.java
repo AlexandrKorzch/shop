@@ -7,7 +7,7 @@ public class Client extends Model {
     private String lastName;
     private String email;
     private String phone;
-    private Basket basket = new Basket();
+    private Basket basket;
 
     public Client(String name,
                   String lastName,

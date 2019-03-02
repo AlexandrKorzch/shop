@@ -5,7 +5,7 @@ import com.luxoft.korzch.dao.base.ProductDao;
 import com.luxoft.korzch.domain.Basket;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Product;
-import com.luxoft.korzch.exceptions.UnrealAgeException;
+import com.luxoft.korzch.exceptions.NotAllowedAgeException;
 import com.luxoft.korzch.exceptions.WrongEmailException;
 import com.luxoft.korzch.exceptions.WrongPhoneException;
 import com.luxoft.korzch.services.base.ClientService;
@@ -36,6 +36,7 @@ public class ClientServiceImpl<T extends Client>
     public long create(T client) {
         try {
             ValidationService.validatePhone(client.getPhone());
+            ValidationService.validatePhoneNotExist(dao.getAll(), client.getPhone());
             return super.create(client);
         } catch (WrongPhoneException e) {
             e.printStackTrace();
@@ -52,7 +53,7 @@ public class ClientServiceImpl<T extends Client>
             client.setEmail(email);
             client.setAge(age);
             return super.update(client);
-        } catch (UnrealAgeException | WrongEmailException e) {
+        } catch (NotAllowedAgeException | WrongEmailException e) {
             e.printStackTrace();
             return false;
         }
@@ -69,7 +70,7 @@ public class ClientServiceImpl<T extends Client>
 
 
     @Override
-    public List<Product> getBasket(long clientId) {
+    public List<Product> getBasket() {
         Client client = sessionService.getCurrentClient();
         Basket basket = client.getBasket();
         return basket.getItems();

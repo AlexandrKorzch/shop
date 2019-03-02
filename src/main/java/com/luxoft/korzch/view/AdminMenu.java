@@ -149,7 +149,6 @@ public class AdminMenu implements Menu {
         }
     }
 
-
     //6
     private void addProduct() throws IOException {
         System.out.println("add product name");
@@ -181,8 +180,8 @@ public class AdminMenu implements Menu {
     private void showClientOrders() throws IOException {
         System.out.println("enter client id");
         long id = idToLong(reader.readLine());
-        List ordersList = orderService.getClientOrders(id);
-        if (isNotEmpty(ordersList)) {
+        List ordersList = orderService.getClientOrders();
+        if (isNotNullNotEmpty(ordersList)) {
             ordersList.forEach(order -> System.out.println(order.toString()));
         } else {
             System.out.println("This client don't have any orders");
