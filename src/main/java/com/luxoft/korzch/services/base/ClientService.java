@@ -11,21 +11,23 @@ public interface ClientService<T extends Client> extends Common<T> {
     /**
      * TODO add documentation
      */
-    boolean removeProductFromBasket(long id);
+    void removeProductFromBasket(long id);
+
 
     /**
      * TODO add documentation
      */
-    boolean update(long id, String email, int age);
+    void update(long id, String email, int age);
+
 
     /**
      * TODO add documentation
      */
-    boolean addProductToBasket(long id);
+    void addProductToBasket(long id);
+
 
     /**
      * TODO add documentation
      */
     List<Product> getBasket();
-
 }

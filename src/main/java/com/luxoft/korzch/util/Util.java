@@ -45,8 +45,4 @@ public class Util {
     public static boolean isNotNull(Object object) {
         return object != null;
     }
-
-    public static boolean successId(long id) {
-        return id > FAIL;
-    }
 }

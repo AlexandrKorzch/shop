@@ -10,16 +10,16 @@ public interface CRUD<T> {
     /**
      * TODO add documentation
      */
-    long create(T item);
+    void create(T item);
 
     /**
      * TODO add documentation
      */
-    boolean update(T item);
+    void update(T item);
 
     /**
      * TODO add documentation
      */
-    boolean delete(long id);
+    void delete(long id);
 
 }

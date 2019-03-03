@@ -92,12 +92,12 @@ public class AdminMenu implements Menu {
         String lastName = reader.readLine();
         System.out.println("input phone in format (000)-000-00-00");
         String phone = reader.readLine();
-        long clientId = clientService.create(new Client(name, lastName, phone));
-        if (successId(clientId)) {
-            System.out.println("Client has been created with id - " + clientId);
-        } else {
-            System.out.println("Sorry we can't create such client");
-        }
+//        long clientId = clientService.create(new Client(name, lastName, phone));
+//        if (successId(clientId)) {
+//            System.out.println("Client has been created with id - " + clientId);
+//        } else {
+//            System.out.println("Sorry we can't create such client");
+//        }
     }
 
     //2
@@ -108,12 +108,12 @@ public class AdminMenu implements Menu {
         String email = reader.readLine();
         System.out.println("input age");
         String age = reader.readLine();
-        boolean success = clientService.update(idToLong(clientId), email, ageToInt(age));
-        if (success) {
-            System.out.println("Client has been updated");
-        } else {
-            System.out.println("Client hasn't been found");
-        }
+//        boolean success = clientService.update(idToLong(clientId), email, ageToInt(age));
+//        if (success) {
+//            System.out.println("Client has been updated");
+//        } else {
+//            System.out.println("Client hasn't been found");
+//        }
     }
 
     //3
@@ -132,12 +132,12 @@ public class AdminMenu implements Menu {
     private void removeClient() throws IOException {
         System.out.println("input client id");
         String clientId = reader.readLine();
-        boolean success = clientService.delete(idToLong(clientId));
-        if (success) {
-            System.out.println("Client has been removed");
-        } else {
-            System.out.println("Client hasn't been found");
-        }
+//        boolean success = clientService.delete(idToLong(clientId));
+//        if (success) {
+//            System.out.println("Client has been removed");
+//        } else {
+//            System.out.println("Client hasn't been found");
+//        }
     }
 
     //5
@@ -155,12 +155,12 @@ public class AdminMenu implements Menu {
         String productName = reader.readLine();
         System.out.println("add product price");
         String productPrice = reader.readLine();
-        long productId = productService.create(new Product(productName, priceToDouble(productPrice)));
-        if (successId(productId)) {
-            System.out.println("new product has been added with id - " + productId);
-        } else {
-            System.out.println("unfortunately product can't be added");
-        }
+//        long productId = productService.create(new Product(productName, priceToDouble(productPrice)));
+//        if (successId(productId)) {
+//            System.out.println("new product has been added with id - " + productId);
+//        } else {
+//            System.out.println("unfortunately product can't be added");
+//        }
     }
 
 
@@ -168,12 +168,12 @@ public class AdminMenu implements Menu {
     private void removeProduct() throws IOException {
         System.out.println("enter product id");
         String productId = reader.readLine();
-        boolean success = productService.delete(idToLong(productId));
-        if (success) {
-            System.out.println("product has been removed");
-        } else {
-            System.out.println("product hasn't been removed");
-        }
+//        boolean success = productService.delete(idToLong(productId));
+//        if (success) {
+//            System.out.println("product has been removed");
+//        } else {
+//            System.out.println("product hasn't been removed");
+//        }
     }
 
     //8
