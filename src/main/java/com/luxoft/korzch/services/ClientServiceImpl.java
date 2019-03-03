@@ -31,13 +31,18 @@ public class ClientServiceImpl<T extends Client> implements ClientService<T> {
     }
 
     @Override
+    public void create(T item) {
+        clientDao.create(item);
+    }
+
+    @Override
     public List<T> getAll() {
         return null;
     }
 
     @Override
     public T get(long id) {
-        return null;
+        return (T)clientDao.get(id);
     }
 
 
@@ -48,11 +53,6 @@ public class ClientServiceImpl<T extends Client> implements ClientService<T> {
 
     @Override
     public void delete(long id) {
-
-    }
-
-    @Override
-    public void create(T item) {
 
     }
 
@@ -132,6 +132,4 @@ public class ClientServiceImpl<T extends Client> implements ClientService<T> {
 //        }
 //        return false;
 //    }
-
-
 }

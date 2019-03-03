@@ -92,7 +92,7 @@ public class AdminMenu implements Menu {
         String lastName = reader.readLine();
         System.out.println("input phone in format (000)-000-00-00");
         String phone = reader.readLine();
-//        long clientId = clientService.create(new Client(name, lastName, phone));
+        clientService.create(new Client(name, lastName, phone));
 //        if (successId(clientId)) {
 //            System.out.println("Client has been created with id - " + clientId);
 //        } else {

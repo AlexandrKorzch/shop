@@ -38,7 +38,4 @@ public class ProductDaoImpl<T extends Product> implements ProductDao<T> {
     public void delete(long id) {
 
     }
-
-//            Statement statement = connection.createStatement()) {
-//            statement.executeQ("INSERT INTO client (name, age, phone, email) VALUES ('serey', 36, '+380683777456', 'aratndr@risnt.rst')");
 }
