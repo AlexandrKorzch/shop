@@ -1,7 +1,6 @@
 package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Client;
-import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.OrderService;
 import com.luxoft.korzch.services.base.ProductService;
@@ -108,7 +107,7 @@ public class AdminMenu implements Menu {
         String email = reader.readLine();
         System.out.println("input age");
         String age = reader.readLine();
-//        boolean success = clientService.update(idToLong(clientId), email, ageToInt(age));
+        /*boolean success = */clientService.update(idToLong(clientId), email, ageToInt(age));
 //        if (success) {
 //            System.out.println("Client has been updated");
 //        } else {
@@ -132,7 +131,7 @@ public class AdminMenu implements Menu {
     private void removeClient() throws IOException {
         System.out.println("input client id");
         String clientId = reader.readLine();
-//        boolean success = clientService.delete(idToLong(clientId));
+        /*boolean success = */clientService.delete(idToLong(clientId));
 //        if (success) {
 //            System.out.println("Client has been removed");
 //        } else {

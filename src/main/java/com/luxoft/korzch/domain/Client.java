@@ -2,7 +2,6 @@ package com.luxoft.korzch.domain;
 
 public class Client extends Model {
 
-    private long id;
     private int age;
     private String name;
     private String lastName;
@@ -29,12 +28,18 @@ public class Client extends Model {
     }
 
     public Client(long id, String name, String lastName, int age, String phone, String email) {
-        this.id = id;
+        setId(id);
         this.name = name;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Client(long id, String email, int age) {
+        setId(id);
+        this.email = email;
+        this.age = age;
     }
 
     public String getName() {

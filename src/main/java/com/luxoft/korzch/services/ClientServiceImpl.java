@@ -12,7 +12,7 @@ import com.luxoft.korzch.services.base.ClientService;
 
 import java.util.List;
 
-public class ClientServiceImpl<T extends Client> implements ClientService<T> {
+public class ClientServiceImpl implements ClientService<Client> {
 
     private final ClientDao<Client> clientDao;
     private final BasketDao<Basket> basketDao;
@@ -31,29 +31,28 @@ public class ClientServiceImpl<T extends Client> implements ClientService<T> {
     }
 
     @Override
-    public void create(T item) {
+    public void create(Client item) {
         clientDao.create(item);
     }
 
     @Override
-    public List<T> getAll() {
-        return null;
+    public Client get(long id) {
+        return clientDao.get(id);
     }
 
     @Override
-    public T get(long id) {
-        return (T)clientDao.get(id);
+    public List<Client> getAll() {
+        return clientDao.getAll();
     }
 
-
     @Override
-    public void update(T item) {
-
+    public void update(Client item) {
+        clientDao.update(item);
     }
 
     @Override
     public void delete(long id) {
-
+        clientDao.delete(id);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class ClientServiceImpl<T extends Client> implements ClientService<T> {
 
     @Override
     public void update(long id, String email, int age) {
-
+        clientDao.update(new Client(id, email, age));
     }
 
     @Override
@@ -75,6 +74,7 @@ public class ClientServiceImpl<T extends Client> implements ClientService<T> {
     public List<Product> getBasket() {
         return null;
     }
+
 
     //    @Override
 //    public long create(T client) {
