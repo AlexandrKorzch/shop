@@ -18,8 +18,8 @@ public class ClientDaoImpl implements ClientDao<Client> {
 
     private final String createClientCommand = "INSERT INTO " + TABLE_CLIENT + " (" + NAME + ", " + LAST_NAME + ", " + PHONE + ") VALUES (?,?,?)";
     private final String updateClientCommand = "UPDATE " + TABLE_CLIENT + " SET "+PHONE+" = ?, "+EMAIL+" = ?, "+AGE+" = ? WHERE " + ID + "= ?";
-    private final String getClientCommand = "SELECT * FROM " + TABLE_CLIENT + " where " + ID + " = ?";
-    private final String deleteClientCommand = "DELETE FROM " + TABLE_CLIENT + " where " + ID + "=?";
+    private final String getClientCommand = "SELECT * FROM " + TABLE_CLIENT + " WHERE " + ID + " = ?";
+    private final String deleteClientCommand = "DELETE FROM " + TABLE_CLIENT + " WHERE " + ID + "=?";
     private final String getAllClientsCommand = "SELECT * FROM " + TABLE_CLIENT;
 
     public ClientDaoImpl(Connection connection) {

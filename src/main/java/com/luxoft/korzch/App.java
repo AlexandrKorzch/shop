@@ -41,13 +41,13 @@ public class App {
             tablesCRUD.createBasketTable();
             tablesCRUD.createOrderTable();
 
-            ProductDao<Product> productDao = new ProductDaoImpl<>(database.getConnection());
+            ProductDao<Product> productDao = new ProductDaoImpl(database.getConnection());
             ClientDao<Client> clientDao = new ClientDaoImpl(database.getConnection());
             BasketDao<Basket> basketDao = new BasketDaoImpl<>(database.getConnection());
             OrderDao<Order> orderDao = new OrderDaoImpl<>(database.getConnection());
 
             ClientService<Client> clientService = new ClientServiceImpl(clientDao, productDao, basketDao, orderDao);
-            ProductService<Product> productService = new ProductServiceImpl<>(productDao);
+            ProductService<Product> productService = new ProductServiceImpl(productDao);
             OrderService<Order> orderService = new OrderServiceImpl<>(orderDao);
 
             AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);

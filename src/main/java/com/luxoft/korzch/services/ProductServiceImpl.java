@@ -6,36 +6,36 @@ import com.luxoft.korzch.services.base.ProductService;
 
 import java.util.List;
 
-public class ProductServiceImpl<T extends Product> implements ProductService<T> {
+public class ProductServiceImpl implements ProductService<Product> {
 
-    private final ProductDao<T> productDao;
+    private final ProductDao<Product> productDao;
 
-    public ProductServiceImpl(ProductDao<T> productDao) {
+    public ProductServiceImpl(ProductDao<Product> productDao) {
         this.productDao = productDao;
     }
 
     @Override
-    public List<T> getAll() {
-        return null;
+    public List<Product> getAll() {
+        return productDao.getAll();
     }
 
     @Override
-    public T get(long id) {
-        return null;
+    public Product get(long id) {
+        return productDao.get(id);
     }
 
     @Override
-    public void create(T item) {
-
+    public void create(Product item) {
+        productDao.create(item);
     }
 
     @Override
-    public void update(T item) {
-
+    public void update(Product item) {
+        productDao.update(item);
     }
 
     @Override
     public void delete(long id) {
-
+        productDao.delete(id);
     }
 }

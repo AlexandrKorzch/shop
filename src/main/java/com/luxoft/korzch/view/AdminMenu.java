@@ -1,6 +1,7 @@
 package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Client;
+import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.OrderService;
 import com.luxoft.korzch.services.base.ProductService;
@@ -154,7 +155,7 @@ public class AdminMenu implements Menu {
         String productName = reader.readLine();
         System.out.println("add product price");
         String productPrice = reader.readLine();
-//        long productId = productService.create(new Product(productName, priceToDouble(productPrice)));
+        /*long productId = */productService.create(new Product(productName, priceToDouble(productPrice)));
 //        if (successId(productId)) {
 //            System.out.println("new product has been added with id - " + productId);
 //        } else {

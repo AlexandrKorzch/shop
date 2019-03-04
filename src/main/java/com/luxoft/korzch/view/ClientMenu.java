@@ -6,8 +6,10 @@ import com.luxoft.korzch.services.base.ProductService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import static com.luxoft.korzch.util.Util.closeProgram;
+import static com.luxoft.korzch.util.Util.isNotNullNotEmpty;
 
 public class ClientMenu implements Menu {
 
@@ -90,12 +92,12 @@ public class ClientMenu implements Menu {
     //2
     private void showAllProducts() throws IOException {
 //        isClientLoggedIn(() -> {
-//            List products = productService.getAll();
-//            if (isNotNullNotEmpty(products)) {
-//                products.forEach(product -> System.out.println(product.toString()));
-//            } else {
-//                System.out.println("Sorry, there are not products in this shop");
-//            }
+            List products = productService.getAll();
+            if (isNotNullNotEmpty(products)) {
+                products.forEach(product -> System.out.println(product.toString()));
+            } else {
+                System.out.println("Sorry, there are not products in this shop");
+            }
 //        });
     }
 
