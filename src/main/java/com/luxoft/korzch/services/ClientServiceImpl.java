@@ -15,13 +15,13 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService<Client> {
 
     private final ClientDao<Client> clientDao;
-    private final BasketDao<Basket> basketDao;
+    private final BasketDao basketDao;
     private final OrderDao<Order> orderDao;
     private ProductDao<Product> productDao;
 
     public ClientServiceImpl(ClientDao<Client> clientDao,
                              ProductDao<Product> productDao,
-                             BasketDao<Basket> basketDao,
+                             BasketDao basketDao,
                              OrderDao<Order> orderDao) {
 
         this.clientDao = clientDao;
@@ -56,23 +56,23 @@ public class ClientServiceImpl implements ClientService<Client> {
     }
 
     @Override
-    public void removeProductFromBasket(long id) {
-
-    }
-
-    @Override
     public void update(long id, String email, int age) {
         clientDao.update(new Client(id, email, age));
     }
 
     @Override
     public void addProductToBasket(long id) {
+        basketDao.add(id);
+    }
 
+    @Override
+    public void removeProductFromBasket(long id) {
+        basketDao.remove(id);
     }
 
     @Override
     public List<Product> getBasket() {
-        return null;
+        return basketDao.getAll();
     }
 
 

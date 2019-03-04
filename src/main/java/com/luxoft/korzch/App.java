@@ -43,7 +43,7 @@ public class App {
 
             ProductDao<Product> productDao = new ProductDaoImpl(database.getConnection());
             ClientDao<Client> clientDao = new ClientDaoImpl(database.getConnection());
-            BasketDao<Basket> basketDao = new BasketDaoImpl<>(database.getConnection());
+            BasketDao basketDao = new BasketDaoImpl(database.getConnection());
             OrderDao<Order> orderDao = new OrderDaoImpl<>(database.getConnection());
 
             ClientService<Client> clientService = new ClientServiceImpl(clientDao, productDao, basketDao, orderDao);

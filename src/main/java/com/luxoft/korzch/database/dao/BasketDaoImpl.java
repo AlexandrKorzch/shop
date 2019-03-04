@@ -1,12 +1,12 @@
 package com.luxoft.korzch.database.dao;
 
 import com.luxoft.korzch.database.dao.base.BasketDao;
-import com.luxoft.korzch.domain.Basket;
+import com.luxoft.korzch.domain.Product;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class BasketDaoImpl<T extends Basket> implements BasketDao<T> {
+public class BasketDaoImpl implements BasketDao {
 
     private final Connection connection;
 
@@ -15,27 +15,22 @@ public class BasketDaoImpl<T extends Basket> implements BasketDao<T> {
     }
 
     @Override
-    public void create(T item) {
+    public void add(long productId) {
 
     }
 
     @Override
-    public T get(long id) {
+    public List<Product> getAll() {
         return null;
     }
 
     @Override
-    public List<T> getAll() {
-        return null;
-    }
-
-    @Override
-    public void update(T item) {
+    public void addAll(List<Product> products) {
 
     }
 
     @Override
-    public void delete(long id) {
+    public void remove(long productId) {
 
     }
 }

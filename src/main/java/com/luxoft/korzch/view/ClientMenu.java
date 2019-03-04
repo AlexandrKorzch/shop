@@ -8,8 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-import static com.luxoft.korzch.util.Util.closeProgram;
-import static com.luxoft.korzch.util.Util.isNotNullNotEmpty;
+import static com.luxoft.korzch.util.Util.*;
 
 public class ClientMenu implements Menu {
 
@@ -104,9 +103,9 @@ public class ClientMenu implements Menu {
     //3
     private void addProductToBasket() throws IOException {
 //        isClientLoggedIn(() -> {
-//            System.out.println("input product id");
-//            String productId = reader.readLine();
-//            boolean success = clientService.addProductToBasket(idToLong(productId));
+            System.out.println("input product id");
+            String productId = reader.readLine();
+            /*boolean success = */clientService.addProductToBasket(idToLong(productId));
 //            if (success) {
 //                System.out.println("Product has been added to your4 basket");
 //            } else {
