@@ -11,16 +11,18 @@ import com.luxoft.korzch.database.dao.base.BasketDao;
 import com.luxoft.korzch.database.dao.base.ClientDao;
 import com.luxoft.korzch.database.dao.base.OrderDao;
 import com.luxoft.korzch.database.dao.base.ProductDao;
-import com.luxoft.korzch.domain.Basket;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.ClientServiceImpl;
 import com.luxoft.korzch.services.OrderServiceImpl;
 import com.luxoft.korzch.services.ProductServiceImpl;
+import com.luxoft.korzch.services.SessionServiceImpl;
 import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.OrderService;
 import com.luxoft.korzch.services.base.ProductService;
+import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.session.Session;
 import com.luxoft.korzch.view.AdminMenu;
 import com.luxoft.korzch.view.ClientMenu;
 import com.luxoft.korzch.view.MainMenu;
@@ -46,12 +48,17 @@ public class App {
             BasketDao basketDao = new BasketDaoImpl(database.getConnection());
             OrderDao<Order> orderDao = new OrderDaoImpl<>(database.getConnection());
 
-            ClientService<Client> clientService = new ClientServiceImpl(clientDao, productDao, basketDao, orderDao);
+            Session<Client> session = new Session<>();
+            SessionService sessionService = new SessionServiceImpl(session);
+
+            ClientService<Client> clientService = new ClientServiceImpl(clientDao, productDao, basketDao, orderDao, sessionService);
             ProductService<Product> productService = new ProductServiceImpl(productDao);
             OrderService<Order> orderService = new OrderServiceImpl<>(orderDao);
 
+            sessionService.setClientService(clientService);
+
             AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);
-            ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService);
+            ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, sessionService);
 
             MainMenu menu = new MainMenu(adminMenu, clientMenu);
             menu.showMenu();

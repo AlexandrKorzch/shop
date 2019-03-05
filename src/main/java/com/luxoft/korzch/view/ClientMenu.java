@@ -1,8 +1,11 @@
 package com.luxoft.korzch.view;
 
+import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.OrderService;
 import com.luxoft.korzch.services.base.ProductService;
+import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.session.LoggedIn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,14 +18,17 @@ public class ClientMenu implements Menu {
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final SessionService sessionService;
     private BufferedReader reader;
 
     public ClientMenu(ClientService clientService,
                       ProductService productService,
-                      OrderService orderService) {
+                      OrderService orderService,
+                      SessionService sessionService) {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -76,90 +82,90 @@ public class ClientMenu implements Menu {
 
     //1
     private void login() throws IOException {
-//        sessionService.logOut();
-//        System.out.println("input client id");
-//        String id = reader.readLine();
-//        sessionService.loginClient(idToLong(id));
-//        boolean loggedIn = sessionService.isClientLoggedIn();
-//        if (loggedIn) {
-//            System.out.println("You are logged in. Well come!!!");
-//        } else {
-//            System.out.println("Please contact the Administrator");
-//        }
+        sessionService.logOut();
+        System.out.println("input client id");
+        String id = reader.readLine();
+        sessionService.loginClient(idToLong(id));
+        boolean loggedIn = sessionService.isClientLoggedIn();
+        if (loggedIn) {
+            System.out.println("You are logged in. Well come!!!");
+        } else {
+            System.out.println("Please contact the Administrator");
+        }
     }
 
     //2
     private void showAllProducts() throws IOException {
-//        isClientLoggedIn(() -> {
+        isClientLoggedIn(() -> {
             List products = productService.getAll();
             if (isNotNullNotEmpty(products)) {
                 products.forEach(product -> System.out.println(product.toString()));
             } else {
                 System.out.println("Sorry, there are not products in this shop");
             }
-//        });
+        });
     }
 
     //3
     private void addProductToBasket() throws IOException {
-//        isClientLoggedIn(() -> {
+        isClientLoggedIn(() -> {
             System.out.println("input product id");
             String productId = reader.readLine();
-            /*boolean success = */clientService.addProductToBasket(idToLong(productId));
-//            if (success) {
-//                System.out.println("Product has been added to your4 basket");
-//            } else {
-//                System.out.println("Products haven't been found in you basket");
-//            }
-//        });
+            boolean success = clientService.addProductToBasket(idToLong(productId));
+            if (success) {
+                System.out.println("Product has been added to your4 basket");
+            } else {
+                System.out.println("Products haven't been added to your basket");
+            }
+        });
     }
 
     //4
     private void showBasket() throws IOException {
-//        isClientLoggedIn(() -> {
-//            List<Product> products = clientService.getBasket();
-//            if (isNotNullNotEmpty(products)) {
-//                products.forEach(product -> System.out.println(product.toString()));
-//            } else {
-//                System.out.println("Sorry, You don't have products in your basket");
-//            }
-//        });
+        isClientLoggedIn(() -> {
+            List<Product> products = clientService.getBasket();
+            if (isNotNullNotEmpty(products)) {
+                products.forEach(product -> System.out.println(product.toString()));
+            } else {
+                System.out.println("Sorry, You don't have products in your basket");
+            }
+        });
     }
 
     //5
     private void removeProductFromBasket() throws IOException {
-//        isClientLoggedIn(() -> {
-//            System.out.println("input product id");
-//            long productId = idToLong(reader.readLine());
-//            boolean success = clientService.removeProductFromBasket(productId);
-//            if (success) {
-//                System.out.println("Product has been removed from you basket");
-//            } else {
-//                System.out.println("Product hasn't been found in you basket");
-//            }
-//        });
+        isClientLoggedIn(() -> {
+            System.out.println("input product id");
+            long productId = idToLong(reader.readLine());
+            boolean success = clientService.removeProductFromBasket(productId);
+            if (success) {
+                System.out.println("Product has been removed from you basket");
+            } else {
+                System.out.println("Product hasn't been found in you basket");
+            }
+        });
     }
 
     //6
     private void showOrders() throws IOException {
-//        isClientLoggedIn(() -> {
+        isClientLoggedIn(() -> {
 //            List<Order> orders = orderService.getClientOrders();
 //            if (isNotNullNotEmpty(orders)) {
 //                orders.forEach(order -> System.out.println(order.toString()));
 //            } else {
 //                System.out.println("Sorry, You don't have orders");
 //            }
-//        });
+        });
     }
 
-//    private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
-//        boolean logged = sessionService.isClientLoggedIn();
-//        if (logged) {
-//            loggedIn.isLoggedIn();
-//        } else {
-//            System.out.println("Please Log In");
-//        }
-//    }
+    private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
+        boolean logged = sessionService.isClientLoggedIn();
+        if (logged) {
+            loggedIn.isLoggedIn();
+        } else {
+            System.out.println("Please Log In");
+        }
+    }
 
     private void showMenuPanel() {
         System.out.println();

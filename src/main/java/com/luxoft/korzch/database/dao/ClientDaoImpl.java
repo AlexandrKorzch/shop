@@ -19,7 +19,7 @@ public class ClientDaoImpl implements ClientDao<Client> {
     private final String createClientCommand = "INSERT INTO " + TABLE_CLIENT + " (" + NAME + ", " + LAST_NAME + ", " + PHONE + ") VALUES (?,?,?)";
     private final String updateClientCommand = "UPDATE " + TABLE_CLIENT + " SET "+PHONE+" = ?, "+EMAIL+" = ?, "+AGE+" = ? WHERE " + ID + "= ?";
     private final String getClientCommand = "SELECT * FROM " + TABLE_CLIENT + " WHERE " + ID + " = ?";
-    private final String deleteClientCommand = "DELETE FROM " + TABLE_CLIENT + " WHERE " + ID + "=?";
+    private final String deleteClientCommand = "DELETE FROM " + TABLE_CLIENT + " WHERE " + ID + "= ?";
     private final String getAllClientsCommand = "SELECT * FROM " + TABLE_CLIENT;
 
     public ClientDaoImpl(Connection connection) {
@@ -27,15 +27,16 @@ public class ClientDaoImpl implements ClientDao<Client> {
     }
 
     @Override
-    public void create(Client item) {
+    public boolean create(Client item) {
         try (PreparedStatement statement = connection.prepareStatement(createClientCommand)) {
             statement.setString(1, item.getName());
             statement.setString(2, item.getLastName());
             statement.setString(3, item.getPhone());
-            statement.execute();
+            return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
@@ -84,25 +85,27 @@ public class ClientDaoImpl implements ClientDao<Client> {
     }
 
     @Override
-    public void update(Client item) {
+    public boolean update(Client item) {
         try (PreparedStatement statement = connection.prepareStatement(updateClientCommand)) {
             statement.setString(1, item.getPhone());
             statement.setString(2, item.getEmail());
             statement.setLong(3, item.getAge());
             statement.setLong(4, item.getId());
-            statement.execute();
+            return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
-    public void delete(long id) {
+    public boolean delete(long id) {
         try (PreparedStatement statement = connection.prepareStatement(deleteClientCommand)) {
             statement.setLong(1, id);
-            statement.execute();
+            return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }

@@ -7,7 +7,6 @@ public class Client extends Model {
     private String lastName;
     private String email;
     private String phone;
-    private Basket basket;
 
     public Client(String name,
                   String lastName,
@@ -80,14 +79,6 @@ public class Client extends Model {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Basket getBasket() {
-        return basket;
-    }
-
-    public void setBasket(Basket basket) {
-        this.basket = basket;
     }
 
     @Override

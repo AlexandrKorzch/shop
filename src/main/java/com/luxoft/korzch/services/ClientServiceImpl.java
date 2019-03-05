@@ -4,11 +4,11 @@ import com.luxoft.korzch.database.dao.base.BasketDao;
 import com.luxoft.korzch.database.dao.base.ClientDao;
 import com.luxoft.korzch.database.dao.base.OrderDao;
 import com.luxoft.korzch.database.dao.base.ProductDao;
-import com.luxoft.korzch.domain.Basket;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.base.ClientService;
+import com.luxoft.korzch.services.base.SessionService;
 
 import java.util.List;
 
@@ -17,22 +17,25 @@ public class ClientServiceImpl implements ClientService<Client> {
     private final ClientDao<Client> clientDao;
     private final BasketDao basketDao;
     private final OrderDao<Order> orderDao;
-    private ProductDao<Product> productDao;
+    private final ProductDao<Product> productDao;
+    private final SessionService sessionService;
 
     public ClientServiceImpl(ClientDao<Client> clientDao,
                              ProductDao<Product> productDao,
                              BasketDao basketDao,
-                             OrderDao<Order> orderDao) {
+                             OrderDao<Order> orderDao,
+                             SessionService sessionService) {
 
         this.clientDao = clientDao;
         this.productDao = productDao;
         this.basketDao = basketDao;
         this.orderDao = orderDao;
+        this.sessionService = sessionService;
     }
 
     @Override
-    public void create(Client item) {
-        clientDao.create(item);
+    public boolean create(Client item) {
+        return clientDao.create(item);
     }
 
     @Override
@@ -46,34 +49,35 @@ public class ClientServiceImpl implements ClientService<Client> {
     }
 
     @Override
-    public void update(Client item) {
-        clientDao.update(item);
+    public boolean update(Client item) {
+        return clientDao.update(item);
     }
 
     @Override
-    public void delete(long id) {
-        clientDao.delete(id);
+    public boolean delete(long id) {
+        return clientDao.delete(id);
     }
 
     @Override
-    public void update(long id, String email, int age) {
-        clientDao.update(new Client(id, email, age));
+    public boolean update(long id, String email, int age) {
+        return clientDao.update(new Client(id, email, age));
     }
 
     @Override
-    public void addProductToBasket(long id) {
-        basketDao.add(id);
+    public boolean addProductToBasket(long id) {
+        return basketDao.add(id, sessionService.getCurrentClient().getId());
     }
 
     @Override
-    public void removeProductFromBasket(long id) {
-        basketDao.remove(id);
+    public boolean removeProductFromBasket(long productId) {
+        return basketDao.remove(productId, sessionService.getCurrentClient().getId());
     }
 
     @Override
     public List<Product> getBasket() {
-        return basketDao.getAll();
+        return basketDao.getAll(sessionService.getCurrentClient().getId());
     }
+
 
 
     //    @Override

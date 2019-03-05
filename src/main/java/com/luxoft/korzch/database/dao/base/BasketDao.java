@@ -9,23 +9,15 @@ public interface BasketDao {
     /**
      * TODO add documentation
      */
-    void add(long productId);
+    boolean add(long productId, long clientId);
 
     /**
      * TODO add documentation
      */
-    void remove(long productId);
+    boolean remove(long productId, long clientId);
 
     /**
      * TODO add documentation
      */
-    List<Product> getAll();
-
-    /**
-     * TODO add documentation
-     */
-     void addAll(List<Product> products);
-
-
-
+    List<Product> getAll(long clientId);
 }

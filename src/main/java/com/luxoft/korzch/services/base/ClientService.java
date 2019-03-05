@@ -6,25 +6,22 @@ import com.luxoft.korzch.domain.Product;
 
 import java.util.List;
 
-public interface ClientService<T extends Client> extends Common<T> {
+public interface ClientService<T extends Client> extends Common<Client> {
 
     /**
      * TODO add documentation
      */
-    void removeProductFromBasket(long id);
-
-
-    /**
-     * TODO add documentation
-     */
-    void update(long id, String email, int age);
-
+    boolean update(long id, String email, int age);
 
     /**
      * TODO add documentation
      */
-    void addProductToBasket(long id);
+    boolean addProductToBasket(long productId);
 
+    /**
+     * TODO add documentation
+     */
+    boolean removeProductFromBasket(long productId);
 
     /**
      * TODO add documentation

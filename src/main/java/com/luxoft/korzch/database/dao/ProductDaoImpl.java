@@ -29,14 +29,15 @@ public class ProductDaoImpl implements ProductDao<Product> {
     }
 
     @Override
-    public void create(Product item) {
+    public boolean create(Product item) {
         try (PreparedStatement statement = connection.prepareStatement(createProductCommand)) {
             statement.setString(1, item.getName());
             statement.setDouble(2, item.getPrice());
-            statement.execute();
+            return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
@@ -79,24 +80,26 @@ public class ProductDaoImpl implements ProductDao<Product> {
     }
 
     @Override
-    public void update(Product item) {
+    public boolean update(Product item) {
         try (PreparedStatement statement = connection.prepareStatement(updateProductCommand)) {
             statement.setString(1, item.getName());
             statement.setDouble(2, item.getPrice());
             statement.setLong(3, item.getId());
-            statement.execute();
+            return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
-    public void delete(long id) {
+    public boolean delete(long id) {
         try (PreparedStatement statement = connection.prepareStatement(deleteProductCommand)) {
             statement.setLong(1, id);
-            statement.execute();
+            return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }

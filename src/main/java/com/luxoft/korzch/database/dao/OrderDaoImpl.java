@@ -15,7 +15,7 @@ public class OrderDaoImpl<T extends Order> implements OrderDao<T> {
     }
 
     @Override
-    public void create(T item) {
+    public boolean create(T item) {
 
     }
 
@@ -30,12 +30,12 @@ public class OrderDaoImpl<T extends Order> implements OrderDao<T> {
     }
 
     @Override
-    public void update(T item) {
+    public boolean update(T item) {
 
     }
 
     @Override
-    public void delete(long id) {
+    public boolean delete(long id) {
 
     }
 

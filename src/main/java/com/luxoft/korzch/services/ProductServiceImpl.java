@@ -25,17 +25,17 @@ public class ProductServiceImpl implements ProductService<Product> {
     }
 
     @Override
-    public void create(Product item) {
-        productDao.create(item);
+    public boolean create(Product item) {
+        return productDao.create(item);
     }
 
     @Override
-    public void update(Product item) {
-        productDao.update(item);
+    public boolean update(Product item) {
+        return productDao.update(item);
     }
 
     @Override
-    public void delete(long id) {
-        productDao.delete(id);
+    public boolean delete(long id) {
+        return productDao.delete(id);
     }
 }
