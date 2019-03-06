@@ -180,7 +180,7 @@ public class AdminMenu implements Menu {
     private void showClientOrders() throws IOException {
         System.out.println("enter client id");
         long id = idToLong(reader.readLine());
-        List ordersList = orderService.getClientOrders();
+        List ordersList = orderService.getClientOrders(id);
         if (isNotNullNotEmpty(ordersList)) {
             ordersList.forEach(order -> System.out.println(order.toString()));
         } else {

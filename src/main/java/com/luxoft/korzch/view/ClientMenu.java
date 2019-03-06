@@ -1,5 +1,6 @@
 package com.luxoft.korzch.view;
 
+import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.OrderService;
@@ -9,6 +10,7 @@ import com.luxoft.korzch.session.LoggedIn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.luxoft.korzch.util.Util.*;
@@ -60,6 +62,10 @@ public class ClientMenu implements Menu {
                     }
                     case "6": {
                         showOrders();
+                        break;
+                    }
+                    case "7": {
+                        createOrder();
                         break;
                     }
                     case "9": {
@@ -149,7 +155,25 @@ public class ClientMenu implements Menu {
     //6
     private void showOrders() throws IOException {
         isClientLoggedIn(() -> {
-//            List<Order> orders = orderService.getClientOrders();
+            List<Order> orders = orderService.getClientOrders(sessionService.getCurrentClient().getId());
+            if (isNotNullNotEmpty(orders)) {
+                orders.forEach(order -> System.out.println(order.toString()));
+            } else {
+                System.out.println("Sorry, You don't have orders");
+            }
+        });
+    }
+
+    private void createOrder() throws IOException { //TODO work here
+        isClientLoggedIn(() -> {
+            Order order = new Order();
+            order.setClientId(sessionService.getCurrentClient().getId());
+
+            List<Product> products = new ArrayList<>();
+            products.add(new Product(45, "Banana", 45.56));
+            products.add(new Product(46, "Apple", 12.56));
+
+            orderService.create(order);
 //            if (isNotNullNotEmpty(orders)) {
 //                orders.forEach(order -> System.out.println(order.toString()));
 //            } else {
@@ -157,6 +181,7 @@ public class ClientMenu implements Menu {
 //            }
         });
     }
+
 
     private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
         boolean logged = sessionService.isClientLoggedIn();
@@ -176,6 +201,7 @@ public class ClientMenu implements Menu {
         System.out.println("4. Show basket");
         System.out.println("5. Remove from basket");
         System.out.println("6. Show orders");
+        System.out.println("7. Create order");
         System.out.println("9. Return");
         System.out.println("0. Exit");
     }

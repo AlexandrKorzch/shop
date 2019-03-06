@@ -9,5 +9,5 @@ public interface OrderDao<T> extends Common<T> {
     /**
      * TODO add documentation
      * */
-    List<T> getByClientId(long id);
+    List<T> getAllClientOrders(long id);
 }

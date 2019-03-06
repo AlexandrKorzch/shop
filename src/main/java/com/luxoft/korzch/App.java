@@ -46,14 +46,14 @@ public class App {
             ProductDao<Product> productDao = new ProductDaoImpl(database.getConnection());
             ClientDao<Client> clientDao = new ClientDaoImpl(database.getConnection());
             BasketDao basketDao = new BasketDaoImpl(database.getConnection());
-            OrderDao<Order> orderDao = new OrderDaoImpl<>(database.getConnection());
+            OrderDao<Order> orderDao = new OrderDaoImpl(database.getConnection());
 
             Session<Client> session = new Session<>();
             SessionService sessionService = new SessionServiceImpl(session);
 
             ClientService<Client> clientService = new ClientServiceImpl(clientDao, productDao, basketDao, orderDao, sessionService);
             ProductService<Product> productService = new ProductServiceImpl(productDao);
-            OrderService<Order> orderService = new OrderServiceImpl<>(orderDao);
+            OrderService<Order> orderService = new OrderServiceImpl(orderDao, sessionService);
 
             sessionService.setClientService(clientService);
 

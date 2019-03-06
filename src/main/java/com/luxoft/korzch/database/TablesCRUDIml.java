@@ -56,7 +56,7 @@ public class TablesCRUDIml implements TablesCRUD {
                 "foreign key ("+CLIENT_ID+") references "+TABLE_CLIENT+"("+ID+"))";
         executeCommand(clientOrder);
 
-        String clientOrders = "create table if not exists "+TABLE_CLIENT_ORDERS+"(" +
+        String clientOrders = "create table if not exists "+ TABLE_ORDER_DETAILS +"(" +
                 ORDER_ID+" bigint not null, " +
                 PRODUCT_ID+" bigint not null, " +
                 "foreign key ("+ORDER_ID+") references "+TABLE_CLIENT_ORDER+"("+ID+"), " +

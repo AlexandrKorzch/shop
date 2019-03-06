@@ -82,14 +82,7 @@ public class ClientServiceImpl implements ClientService<Client> {
 
     //    @Override
 //    public long create(T client) {
-//        try {
-//            ValidationService.validatePhone(client.getPhone());
-////            ValidationService.validatePhoneNotExist(dao.getAll(), client.getPhone());
-////            return super.create(client);
-//        } catch (WrongPhoneException e) {
-//            e.printStackTrace();
-//            return FAIL;
-//        }
+//
 //    }
 
 //    @Override

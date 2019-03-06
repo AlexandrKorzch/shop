@@ -3,53 +3,56 @@ package com.luxoft.korzch.services;
 import com.luxoft.korzch.database.dao.base.OrderDao;
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.services.base.OrderService;
+import com.luxoft.korzch.services.base.SessionService;
 
 import java.util.List;
 
-public class OrderServiceImpl<T extends Order> implements OrderService<T> {
+public class OrderServiceImpl implements OrderService<Order> {
 
-    private final OrderDao<T> orderDao;
+    private final OrderDao<Order> orderDao;
+    private final SessionService sessionService;
 
-    public OrderServiceImpl(OrderDao<T> orderDao) {
+    public OrderServiceImpl(OrderDao<Order> orderDao, SessionService sessionService) {
         this.orderDao = orderDao;
+        this.sessionService = sessionService;
     }
 
     @Override
-    public List<T> getClientOrders() {
-        return null;
+    public boolean create(Order order) {
+        return orderDao.create(order);
     }
 
     @Override
-    public boolean addOrder(T order) {
-        return false;
+    public Order get(long id) {
+        return orderDao.get(id);
     }
 
     @Override
-    public List<T> getAll() {
-        return null;
+    public boolean update(Order order) {
+        return orderDao.update(order);
     }
 
     @Override
-    public T get(long id) {
-        return null;
+    public List<Order> getClientOrders(long clientId) {
+        return orderDao.getAllClientOrders(clientId);
     }
 
     @Override
-    public void create(T item) {
-
+    public boolean delete(long id) {
+        return orderDao.delete(id);
     }
 
     @Override
-    public void update(T item) {
-
+    public boolean addOrder(Order order) {
+        return orderDao.create(order);
     }
 
     @Override
-    public void delete(long id) {
-
+    public List<Order> getAll() {
+        return orderDao.getAll();
     }
 
-//    private final SessionService sessionService;
+    //    private final SessionService sessionService;
 //
 //    public OrderServiceImpl(SessionService sessionService, OrderDao<T> orderDao) {
 //        dao = orderDao;

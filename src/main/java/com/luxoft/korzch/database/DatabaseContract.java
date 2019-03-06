@@ -6,7 +6,7 @@ public class DatabaseContract {
     public static final String TABLE_PRODUCT  = "product";
     public static final String TABLE_BASKET  = "basket";
     public static final String TABLE_CLIENT_ORDER  = "client_order";
-    public static final String TABLE_CLIENT_ORDERS  = "client_orders";
+    public static final String TABLE_ORDER_DETAILS = "order_details";
     public static final String ID  = "id";
     public static final String AGE  = "age";
     public static final String NAME  = "name";
