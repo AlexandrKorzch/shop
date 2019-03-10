@@ -173,15 +173,14 @@ public class ClientMenu implements Menu {
             products.add(new Product(45, "Banana", 45.56));
             products.add(new Product(46, "Apple", 12.56));
 
-            orderService.create(order);
-//            if (isNotNullNotEmpty(orders)) {
-//                orders.forEach(order -> System.out.println(order.toString()));
-//            } else {
-//                System.out.println("Sorry, You don't have orders");
-//            }
+            boolean success = orderService.create(order);
+            if (success) {
+                System.out.println("Order has been created");
+            } else {
+                System.out.println("Sorry, You don't have orders");
+            }
         });
     }
-
 
     private void isClientLoggedIn(LoggedIn loggedIn) throws IOException {
         boolean logged = sessionService.isClientLoggedIn();

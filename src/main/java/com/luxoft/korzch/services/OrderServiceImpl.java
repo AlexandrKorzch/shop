@@ -51,26 +51,4 @@ public class OrderServiceImpl implements OrderService<Order> {
     public List<Order> getAll() {
         return orderDao.getAll();
     }
-
-    //    private final SessionService sessionService;
-//
-//    public OrderServiceImpl(SessionService sessionService, OrderDao<T> orderDao) {
-//        dao = orderDao;
-//        this.sessionService = sessionService;
-//    }
-//
-//    @Override
-//    public List<T> getClientOrders() {
-//        Client client = sessionService.getCurrentClient();
-//        long clientId = client.getId();
-//        return dao.getByClientId(clientId);
-//    }
-//
-//    @Override
-//    public boolean addOrder(T order) {
-//        Client client = sessionService.getCurrentClient();
-//        order.setClientId(client.getId());
-//        dao.create(order);
-//        return true;
-//    }
 }
