@@ -32,7 +32,8 @@ public class ClientDaoImpl implements ClientDao<Client> {
             statement.setString(1, item.getName());
             statement.setString(2, item.getLastName());
             statement.setString(3, item.getPhone());
-            return statement.execute();
+            statement.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -91,7 +92,8 @@ public class ClientDaoImpl implements ClientDao<Client> {
             statement.setString(2, item.getEmail());
             statement.setLong(3, item.getAge());
             statement.setLong(4, item.getId());
-            return statement.execute();
+            statement.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }

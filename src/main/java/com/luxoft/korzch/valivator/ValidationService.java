@@ -16,7 +16,7 @@ public class ValidationService {
 
     public static boolean validateAge(int age) throws NotAllowedAgeException {
         if (age > MAX_AGE || age < MIN_AGE) {
-            throw new NotAllowedAgeException("Unreal age");
+            throw new NotAllowedAgeException("Wrong age");
         }
         return true;
     }

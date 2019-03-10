@@ -1,7 +1,6 @@
 package com.luxoft.korzch.database.dao;
 
 import com.luxoft.korzch.database.dao.base.ProductDao;
-import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Product;
 
 import java.sql.Connection;
@@ -12,16 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.luxoft.korzch.database.DatabaseContract.*;
-import static com.luxoft.korzch.database.DatabaseContract.TABLE_PRODUCT;
 
 public class ProductDaoImpl implements ProductDao<Product> {
 
     private final Connection connection;
 
-    private final String updateProductCommand = "UPDATE " + TABLE_PRODUCT + " SET "+NAME+" = ?, "+PRICE+" = ? WHERE " + ID + "= ?";
+    private final String updateProductCommand = "UPDATE " + TABLE_PRODUCT + " SET " + NAME + " = ?, " + PRICE + " = ? WHERE " + ID + "= ?";
     private final String createProductCommand = "INSERT INTO " + TABLE_PRODUCT + " (" + NAME + ", " + PRICE + ") VALUES (?,?)";
     private final String getProductCommand = "SELECT * FROM " + TABLE_PRODUCT + " WHERE " + ID + " = ?";
-    private final String deleteProductCommand = "DELETE FROM " + TABLE_PRODUCT + " WHERE " + ID + "=?";
+    private final String deleteProductCommand = "DELETE FROM " + TABLE_PRODUCT + " WHERE " + ID + " =?";
     private final String getAllProductsCommand = "SELECT * FROM " + TABLE_PRODUCT;
 
     public ProductDaoImpl(Connection connection) {
@@ -33,7 +31,8 @@ public class ProductDaoImpl implements ProductDao<Product> {
         try (PreparedStatement statement = connection.prepareStatement(createProductCommand)) {
             statement.setString(1, item.getName());
             statement.setDouble(2, item.getPrice());
-            return statement.execute();
+            statement.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,7 +84,8 @@ public class ProductDaoImpl implements ProductDao<Product> {
             statement.setString(1, item.getName());
             statement.setDouble(2, item.getPrice());
             statement.setLong(3, item.getId());
-            return statement.execute();
+            statement.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }

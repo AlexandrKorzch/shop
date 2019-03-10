@@ -18,7 +18,7 @@ public class BasketDaoImpl implements BasketDao {
 
     private final String addToBasketCommand = "INSERT INTO " + TABLE_BASKET + " (" + CLIENT_ID + ", " + PRODUCT_ID + ") VALUES (?,?)";
     private final String deleteFromBasketCommand = "DELETE FROM " + TABLE_BASKET + " WHERE " + CLIENT_ID + "=? AND " + PRODUCT_ID + "=?";
-    private final String getBasketCommand = "SELECT * FROM " + TABLE_BASKET + " WHERE " + CLIENT_ID + " = ?";
+    private final String getBasketCommand = "SELECT * FROM " + TABLE_PRODUCT + " JOIN " + TABLE_BASKET + " ON " + ID + "=" + PRODUCT_ID + " WHERE " + CLIENT_ID + " = ?";
 
     public BasketDaoImpl(Connection connection) {
         this.connection = connection;
@@ -32,8 +32,10 @@ public class BasketDaoImpl implements BasketDao {
     @Override
     public List<Product> getAll(long clientId) {
         List<Product> products = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(getBasketCommand);
-             ResultSet resultSet = statement.executeQuery()) {
+        ResultSet resultSet = null;
+        try (PreparedStatement statement = connection.prepareStatement(getBasketCommand)) {
+            statement.setLong(1, clientId);
+            resultSet = statement.executeQuery();
             resultSet.first();
             while (!resultSet.isAfterLast()) {
                 products.add(new Product(
@@ -42,6 +44,7 @@ public class BasketDaoImpl implements BasketDao {
                         resultSet.getDouble(PRICE)));
                 resultSet.next();
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,7 +60,8 @@ public class BasketDaoImpl implements BasketDao {
         try (PreparedStatement statement = connection.prepareStatement(deleteFromBasketCommand)) {
             statement.setLong(1, clientId);
             statement.setLong(2, productId);
-            return statement.execute();
+            statement.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
