@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 public class DatabaseTest {
 
-    private static DBConnectionProvider database;
+    private static DBConnectionProvider dbConnectionProvider;
     private static ClientDao<Client> clientDao;
     private static ProductDao<Product> productDao;
     private static BasketDao basketDao;
@@ -29,11 +29,11 @@ public class DatabaseTest {
 
     @BeforeClass
     public static void setUp() {
-        database = new DBConnectionProvider();
-        productDao = new ProductDaoImpl(database.getConnection());
-        clientDao = new ClientDaoImpl(database.getConnection());
-        basketDao = new BasketDaoImpl(database.getConnection());
-        orderDao = new OrderDaoImpl(database.getConnection());
+        dbConnectionProvider = new DBConnectionProvider();
+        productDao = new ProductDaoImpl(dbConnectionProvider);
+        clientDao = new ClientDaoImpl(dbConnectionProvider);
+        basketDao = new BasketDaoImpl(dbConnectionProvider);
+        orderDao = new OrderDaoImpl(dbConnectionProvider);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class DatabaseTest {
 
     @AfterClass
     public static void tearDown() {
-        database = null;
+        dbConnectionProvider = null;
         clientDao = null;
     }
 }

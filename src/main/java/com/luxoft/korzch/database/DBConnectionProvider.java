@@ -1,6 +1,5 @@
 package com.luxoft.korzch.database;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,32 +15,26 @@ public class DBConnectionProvider {
     private static final String DATABASE_USER_NAME = "ALEX";
     private static final String DATABASE_PASSWORD = "";
 
-    private Connection connection;
-
     public DBConnectionProvider() {
         startDataBase();
-        connectToDatabase();
     }
 
     public Connection getConnection() {
-        return connection;
+        try {
+            return DriverManager.getConnection(DATABASE_URL, DATABASE_USER_NAME, DATABASE_PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void startDataBase() {
-        try {
+        /*try {
             ProcessBuilder processBuilder =
                     new ProcessBuilder("xterm", "-e", "java -jar " + DATABASE_PATH + DATABASE_JAR);
             processBuilder.start();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void connectToDatabase() {
-        try {
-            this.connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER_NAME, DATABASE_PASSWORD);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        }*/
     }
 }

@@ -34,8 +34,8 @@ public class ClientServiceImpl implements ClientService<Client> {
     }
 
     @Override
-    public boolean create(Client item) {
-        return clientDao.create(item);
+    public boolean create(Client client) {
+        return clientDao.create(client);
     }
 
     @Override
@@ -49,8 +49,8 @@ public class ClientServiceImpl implements ClientService<Client> {
     }
 
     @Override
-    public boolean update(Client item) {
-        return clientDao.update(item);
+    public boolean update(Client client) {
+        return clientDao.update(client);
     }
 
     @Override

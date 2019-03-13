@@ -8,10 +8,10 @@ import static com.luxoft.korzch.database.DatabaseContract.*;
 
 public class TablesCRUDIml implements TablesCRUD {
 
-    private final Connection connection;
+    private final DBConnectionProvider dbConnectionProvider;
 
-    public TablesCRUDIml(Connection connection) {
-        this.connection = connection;
+    public TablesCRUDIml(DBConnectionProvider connection) {
+        this.dbConnectionProvider = connection;
     }
 
     @Override
@@ -65,7 +65,8 @@ public class TablesCRUDIml implements TablesCRUD {
     }
 
     private void executeCommand(String command) {
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = dbConnectionProvider.getConnection();
+                Statement statement = connection.createStatement()) {
             statement.execute(command);
         } catch (SQLException e) {
             System.out.println(e.getMessage());

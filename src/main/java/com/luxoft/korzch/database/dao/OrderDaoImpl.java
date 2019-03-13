@@ -1,7 +1,7 @@
 package com.luxoft.korzch.database.dao;
 
+import com.luxoft.korzch.database.DBConnectionProvider;
 import com.luxoft.korzch.database.dao.base.OrderDao;
-import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
 
@@ -16,22 +16,23 @@ import static com.luxoft.korzch.database.DatabaseContract.*;
 
 public class OrderDaoImpl implements OrderDao<Order> {
 
-    private final Connection connection;
+    private final DBConnectionProvider dbConnectionProvider;
 
-    private final String addOrderCommand = "INSERT INTO " + TABLE_CLIENT_ORDER + " (" + CLIENT_ID + ") VALUES (?)";
-    private final String getLastOrderIdCommand = "SELECT MAX(" + ID + ") FROM " + TABLE_CLIENT_ORDER;
-    private final String addOrderDetailsCommand = "INSERT INTO " + TABLE_ORDER_DETAILS + " (" + ORDER_ID + ", " + PRODUCT_ID + ") VALUES (?,?)";
+    private static final String addOrderCommand = "INSERT INTO " + TABLE_CLIENT_ORDER + " (" + CLIENT_ID + ") VALUES (?)";
+    private static final String getLastOrderIdCommand = "SELECT MAX(" + ID + ") FROM " + TABLE_CLIENT_ORDER;
+    private static final String addOrderDetailsCommand = "INSERT INTO " + TABLE_ORDER_DETAILS + " (" + ORDER_ID + ", " + PRODUCT_ID + ") VALUES (?,?)";
 
-    private final String getClientOrders ="SELECT * FROM "+TABLE_CLIENT_ORDER +" WHERE "+CLIENT_ID +" = ?";
-    private final String getProductsInOrder = "SELECT * FROM " + TABLE_PRODUCT + " P" + " JOIN "+ TABLE_ORDER_DETAILS + " D on P."+ ID +"= D."+ PRODUCT_ID + " WHERE D."+ ORDER_ID +" = ?";
+    private static final String getClientOrders ="SELECT * FROM "+TABLE_CLIENT_ORDER +" WHERE "+CLIENT_ID +" = ?";
+    private static final String getProductsInOrder = "SELECT * FROM " + TABLE_PRODUCT + " P" + " JOIN "+ TABLE_ORDER_DETAILS + " D on P."+ ID +"= D."+ PRODUCT_ID + " WHERE D."+ ORDER_ID +" = ?";
 
-    public OrderDaoImpl(Connection connection) {
-        this.connection = connection;
+    public OrderDaoImpl(DBConnectionProvider connection) {
+        this.dbConnectionProvider = connection;
     }
 
     @Override
     public boolean create(Order order) {
-        try (PreparedStatement statement = connection.prepareStatement(addOrderCommand)) {
+        try (Connection connection = dbConnectionProvider.getConnection();
+             PreparedStatement statement = connection.prepareStatement(addOrderCommand)) {
             statement.setLong(1, order.getClientId());
             statement.execute();
             try (PreparedStatement statementLastId = connection.prepareStatement(getLastOrderIdCommand)) {
@@ -61,7 +62,8 @@ public class OrderDaoImpl implements OrderDao<Order> {
     @Override
     public List<Order> getAllClientOrders(long clientId) {
         List<Order> orders = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(getClientOrders)) {
+        try (Connection connection = dbConnectionProvider.getConnection();
+             PreparedStatement statement = connection.prepareStatement(getClientOrders)) {
             statement.setLong(1, clientId);
             ResultSet resultSet = statement.executeQuery();
             resultSet.first();

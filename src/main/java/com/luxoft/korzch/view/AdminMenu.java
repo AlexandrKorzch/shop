@@ -1,6 +1,7 @@
 package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Client;
+import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
 import com.luxoft.korzch.services.base.ClientService;
 import com.luxoft.korzch.services.base.OrderService;
@@ -142,7 +143,7 @@ public class AdminMenu implements Menu {
 
     //5
     private void getAllClients() {
-        List clients = clientService.getAll();
+        List<Client> clients = clientService.getAll();
         clients.forEach(client -> System.out.println(client.toString()));
         if (clients.isEmpty()) {
             System.out.println("Sorry, there are not clients in the database");
@@ -180,7 +181,7 @@ public class AdminMenu implements Menu {
     private void showClientOrders() throws IOException {
         System.out.println("enter client id");
         long id = idToLong(reader.readLine());
-        List ordersList = orderService.getClientOrders(id);
+        List <Order> ordersList = orderService.getClientOrders(id);
         if (isNotNullNotEmpty(ordersList)) {
             ordersList.forEach(order -> System.out.println(order.toString()));
         } else {

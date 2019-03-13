@@ -27,41 +27,36 @@ import com.luxoft.korzch.view.AdminMenu;
 import com.luxoft.korzch.view.ClientMenu;
 import com.luxoft.korzch.view.MainMenu;
 
-import static com.luxoft.korzch.util.Util.isNotNull;
-
 public class App {
 
     public static void main(String[] args) {
 
-        DBConnectionProvider database = new DBConnectionProvider();
+        DBConnectionProvider dbConnectionProvider = new DBConnectionProvider();
 
-        if (isNotNull(database.getConnection())) {
+        TablesCRUD tablesCRUD = new TablesCRUDIml(dbConnectionProvider);
+        tablesCRUD.createProductTable();
+        tablesCRUD.createClientTable();
+        tablesCRUD.createBasketTable();
+        tablesCRUD.createOrderTable();
 
-            TablesCRUD tablesCRUD = new TablesCRUDIml(database.getConnection());
-            tablesCRUD.createProductTable();
-            tablesCRUD.createClientTable();
-            tablesCRUD.createBasketTable();
-            tablesCRUD.createOrderTable();
+        ProductDao<Product> productDao = new ProductDaoImpl(dbConnectionProvider);
+        ClientDao<Client> clientDao = new ClientDaoImpl(dbConnectionProvider);
+        BasketDao basketDao = new BasketDaoImpl(dbConnectionProvider);
+        OrderDao<Order> orderDao = new OrderDaoImpl(dbConnectionProvider);
 
-            ProductDao<Product> productDao = new ProductDaoImpl(database.getConnection());
-            ClientDao<Client> clientDao = new ClientDaoImpl(database.getConnection());
-            BasketDao basketDao = new BasketDaoImpl(database.getConnection());
-            OrderDao<Order> orderDao = new OrderDaoImpl(database.getConnection());
+        Session<Client> session = new Session<>();
+        SessionService sessionService = new SessionServiceImpl(session);
 
-            Session<Client> session = new Session<>();
-            SessionService sessionService = new SessionServiceImpl(session);
+        ClientService<Client> clientService = new ClientServiceImpl(clientDao, productDao, basketDao, orderDao, sessionService);
+        ProductService<Product> productService = new ProductServiceImpl(productDao);
+        OrderService<Order> orderService = new OrderServiceImpl(orderDao, sessionService);
 
-            ClientService<Client> clientService = new ClientServiceImpl(clientDao, productDao, basketDao, orderDao, sessionService);
-            ProductService<Product> productService = new ProductServiceImpl(productDao);
-            OrderService<Order> orderService = new OrderServiceImpl(orderDao, sessionService);
+        sessionService.setClientService(clientService);
 
-            sessionService.setClientService(clientService);
+        AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);
+        ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, sessionService);
 
-            AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);
-            ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, sessionService);
-
-            MainMenu menu = new MainMenu(adminMenu, clientMenu);
-            menu.showMenu();
-        }
+        MainMenu menu = new MainMenu(adminMenu, clientMenu);
+        menu.showMenu();
     }
 }
