@@ -47,15 +47,14 @@ public class ProductDaoImpl implements ProductDao<Product> {
         try (Connection connection = dbConnectionProvider.getConnection();
              PreparedStatement statement = connection.prepareStatement(getProductCommand)) {
             statement.setLong(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                resultSet.first();
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.first()) {
                 product = new Product(
                         resultSet.getLong(ID),
                         resultSet.getString(NAME),
                         resultSet.getDouble(PRICE));
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,13 +67,14 @@ public class ProductDaoImpl implements ProductDao<Product> {
         try (Connection connection = dbConnectionProvider.getConnection();
              PreparedStatement statement = connection.prepareStatement(getAllProductsCommand);
              ResultSet resultSet = statement.executeQuery()) {
-            resultSet.first();
-            while (!resultSet.isAfterLast()) {
-                products.add(new Product(
-                        resultSet.getLong(ID),
-                        resultSet.getString(NAME),
-                        resultSet.getDouble(PRICE)));
-                resultSet.next();
+            if (resultSet.first()) {
+                while (!resultSet.isAfterLast()) {
+                    products.add(new Product(
+                            resultSet.getLong(ID),
+                            resultSet.getString(NAME),
+                            resultSet.getDouble(PRICE)));
+                    resultSet.next();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

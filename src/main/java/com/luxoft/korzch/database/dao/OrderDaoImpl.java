@@ -22,8 +22,8 @@ public class OrderDaoImpl implements OrderDao<Order> {
     private static final String getLastOrderIdCommand = "SELECT MAX(" + ID + ") FROM " + TABLE_CLIENT_ORDER;
     private static final String addOrderDetailsCommand = "INSERT INTO " + TABLE_ORDER_DETAILS + " (" + ORDER_ID + ", " + PRODUCT_ID + ") VALUES (?,?)";
 
-    private static final String getClientOrders ="SELECT * FROM "+TABLE_CLIENT_ORDER +" WHERE "+CLIENT_ID +" = ?";
-    private static final String getProductsInOrder = "SELECT * FROM " + TABLE_PRODUCT + " P" + " JOIN "+ TABLE_ORDER_DETAILS + " D on P."+ ID +"= D."+ PRODUCT_ID + " WHERE D."+ ORDER_ID +" = ?";
+    private static final String getClientOrders = "SELECT * FROM " + TABLE_CLIENT_ORDER + " WHERE " + CLIENT_ID + " = ?";
+    private static final String getProductsInOrder = "SELECT " + ID + ", " + NAME + ", " + PRICE + " FROM " + TABLE_PRODUCT + " P" + " JOIN " + TABLE_ORDER_DETAILS + " D on P." + ID + "= D." + PRODUCT_ID + " WHERE D." + ORDER_ID + " = ?";
 
     public OrderDaoImpl(DBConnectionProvider connection) {
         this.dbConnectionProvider = connection;
@@ -31,28 +31,25 @@ public class OrderDaoImpl implements OrderDao<Order> {
 
     @Override
     public boolean create(Order order) {
+
         try (Connection connection = dbConnectionProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(addOrderCommand)) {
+             PreparedStatement statement = connection.prepareStatement(addOrderCommand);
+             PreparedStatement statementLastId = connection.prepareStatement(getLastOrderIdCommand);
+             PreparedStatement detailsStatement = connection.prepareStatement(addOrderDetailsCommand)) {
             statement.setLong(1, order.getClientId());
             statement.execute();
-            try (PreparedStatement statementLastId = connection.prepareStatement(getLastOrderIdCommand)) {
-                ResultSet resultSet = statementLastId.executeQuery();
-                resultSet.first();
+            ResultSet resultSet = statementLastId.executeQuery();
+            if (resultSet.first()) {
                 long orderId = resultSet.getLong(1);
-                try (PreparedStatement detailsStatement = connection.prepareStatement(addOrderDetailsCommand)) {
-                    for (Product product : order.getProducts()) {
-                        detailsStatement.setLong(1, orderId);
-                        detailsStatement.setLong(2, product.getId());
-                        detailsStatement.addBatch();
-                    }
-                    detailsStatement.executeBatch();
-                    return true;
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                for (Product product : order.getProducts()) {
+                    detailsStatement.setLong(1, orderId);
+                    detailsStatement.setLong(2, product.getId());
+                    detailsStatement.addBatch();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+                detailsStatement.executeBatch();
+                return true;
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,16 +60,17 @@ public class OrderDaoImpl implements OrderDao<Order> {
     public List<Order> getAllClientOrders(long clientId) {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = dbConnectionProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(getClientOrders)) {
+             PreparedStatement statement = connection.prepareStatement(getClientOrders);
+             PreparedStatement statementProducts = connection.prepareStatement(getProductsInOrder)) {
             statement.setLong(1, clientId);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.first();
-            while (!resultSet.isAfterLast()) {
-                long orderId = resultSet.getLong(1);
-                Order order = new Order();
-                order.setId(resultSet.getLong(ID));
-                order.setClientId(resultSet.getLong(CLIENT_ID));
-                try (PreparedStatement statementProducts = connection.prepareStatement(getProductsInOrder)) {
+            if (resultSet.first()) {
+                while (!resultSet.isAfterLast()) {
+                    long orderId = resultSet.getLong(1);
+                    Order order = new Order();
+                    order.setId(resultSet.getLong(ID));
+                    order.setClientId(resultSet.getLong(CLIENT_ID));
+
                     statementProducts.setLong(1, orderId);
                     List<Product> products = new ArrayList<>();
                     ResultSet resultSetProducts = statementProducts.executeQuery();
@@ -87,11 +85,9 @@ public class OrderDaoImpl implements OrderDao<Order> {
                     }
                     resultSetProducts.close();
                     order.setProducts(products);
-                }catch (SQLException e){
-                    e.printStackTrace();
+                    orders.add(order);
+                    resultSet.next();
                 }
-                orders.add(order);
-                resultSet.next();
             }
             resultSet.close();
         } catch (SQLException e) {

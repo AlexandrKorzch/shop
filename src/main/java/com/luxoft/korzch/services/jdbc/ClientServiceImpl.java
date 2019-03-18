@@ -1,4 +1,4 @@
-package com.luxoft.korzch.services;
+package com.luxoft.korzch.services.jdbc;
 
 import com.luxoft.korzch.database.dao.base.BasketDao;
 import com.luxoft.korzch.database.dao.base.ClientDao;
@@ -7,8 +7,8 @@ import com.luxoft.korzch.database.dao.base.ProductDao;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
-import com.luxoft.korzch.services.base.ClientService;
-import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.SessionService;
 
 import java.util.List;
 

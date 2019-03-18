@@ -1,9 +1,9 @@
-package com.luxoft.korzch.services;
+package com.luxoft.korzch.services.jdbc;
 
 import com.luxoft.korzch.database.dao.base.OrderDao;
 import com.luxoft.korzch.domain.Order;
-import com.luxoft.korzch.services.base.OrderService;
-import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.services.OrderService;
+import com.luxoft.korzch.services.SessionService;
 
 import java.util.List;
 

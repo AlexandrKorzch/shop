@@ -33,18 +33,19 @@ public class BasketDaoImpl implements BasketDao {
     @Override
     public List<Product> getAll(long clientId) {
         List<Product> products = new ArrayList<>();
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try (Connection connection = dbConnectionProvider.getConnection();
              PreparedStatement statement = connection.prepareStatement(getBasketCommand)) {
             statement.setLong(1, clientId);
             resultSet = statement.executeQuery();
-            resultSet.first();
-            while (!resultSet.isAfterLast()) {
-                products.add(new Product(
-                        resultSet.getLong(ID),
-                        resultSet.getString(NAME),
-                        resultSet.getDouble(PRICE)));
-                resultSet.next();
+            if (resultSet.first()) {
+                while (!resultSet.isAfterLast()) {
+                    products.add(new Product(
+                            resultSet.getLong(ID),
+                            resultSet.getString(NAME),
+                            resultSet.getDouble(PRICE)));
+                    resultSet.next();
+                }
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -58,9 +59,9 @@ public class BasketDaoImpl implements BasketDao {
         return simpleCommand(productId, clientId, deleteFromBasketCommand);
     }
 
-    private boolean simpleCommand(long productId, long clientId, String deleteFromBasketCommand) {
+    private boolean simpleCommand(long productId, long clientId, String command) {
         try (Connection connection = dbConnectionProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(deleteFromBasketCommand)) {
+             PreparedStatement statement = connection.prepareStatement(command)) {
             statement.setLong(1, clientId);
             statement.setLong(2, productId);
             statement.execute();

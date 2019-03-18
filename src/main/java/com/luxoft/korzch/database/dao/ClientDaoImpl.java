@@ -4,7 +4,10 @@ import com.luxoft.korzch.database.DBConnectionProvider;
 import com.luxoft.korzch.database.dao.base.ClientDao;
 import com.luxoft.korzch.domain.Client;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ public class ClientDaoImpl implements ClientDao<Client> {
     private final DBConnectionProvider dbConnectionProvider;
 
     private static final String createClientCommand = "INSERT INTO " + TABLE_CLIENT + " (" + NAME + ", " + LAST_NAME + ", " + PHONE + ") VALUES (?,?,?)";
-    private static final String updateClientCommand = "UPDATE " + TABLE_CLIENT + " SET "+PHONE+" = ?, "+EMAIL+" = ?, "+AGE+" = ? WHERE " + ID + "= ?";
+    private static final String updateClientCommand = "UPDATE " + TABLE_CLIENT + " SET " + PHONE + " = ?, " + EMAIL + " = ?, " + AGE + " = ? WHERE " + ID + "= ?";
     private static final String getClientCommand = "SELECT * FROM " + TABLE_CLIENT + " WHERE " + ID + " = ?";
     private static final String deleteClientCommand = "DELETE FROM " + TABLE_CLIENT + " WHERE " + ID + "= ?";
     private static final String getAllClientsCommand = "SELECT * FROM " + TABLE_CLIENT;
@@ -45,19 +48,17 @@ public class ClientDaoImpl implements ClientDao<Client> {
         try (Connection connection = dbConnectionProvider.getConnection();
              PreparedStatement statement = connection.prepareStatement(getClientCommand)) {
             statement.setLong(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if(resultSet.first()){
-                    client = new Client(
-                            resultSet.getLong(ID),
-                            resultSet.getString(NAME),
-                            resultSet.getString(LAST_NAME),
-                            resultSet.getInt(AGE),
-                            resultSet.getString(PHONE),
-                            resultSet.getString(EMAIL));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.first()) {
+                client = new Client(
+                        resultSet.getLong(ID),
+                        resultSet.getString(NAME),
+                        resultSet.getString(LAST_NAME),
+                        resultSet.getInt(AGE),
+                        resultSet.getString(PHONE),
+                        resultSet.getString(EMAIL));
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,16 +71,17 @@ public class ClientDaoImpl implements ClientDao<Client> {
         try (Connection connection = dbConnectionProvider.getConnection();
              PreparedStatement statement = connection.prepareStatement(getAllClientsCommand);
              ResultSet resultSet = statement.executeQuery()) {
-            resultSet.first();
-            while (!resultSet.isAfterLast()) {
-                clients.add(new Client(
-                        resultSet.getLong(ID),
-                        resultSet.getString(NAME),
-                        resultSet.getString(LAST_NAME),
-                        resultSet.getInt(AGE),
-                        resultSet.getString(PHONE),
-                        resultSet.getString(EMAIL)));
-                resultSet.next();
+            if (resultSet.first()) {
+                while (!resultSet.isAfterLast()) {
+                    clients.add(new Client(
+                            resultSet.getLong(ID),
+                            resultSet.getString(NAME),
+                            resultSet.getString(LAST_NAME),
+                            resultSet.getInt(AGE),
+                            resultSet.getString(PHONE),
+                            resultSet.getString(EMAIL)));
+                    resultSet.next();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

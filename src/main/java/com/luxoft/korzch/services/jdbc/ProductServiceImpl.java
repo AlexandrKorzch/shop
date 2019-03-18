@@ -1,8 +1,8 @@
-package com.luxoft.korzch.services;
+package com.luxoft.korzch.services.jdbc;
 
 import com.luxoft.korzch.database.dao.base.ProductDao;
 import com.luxoft.korzch.domain.Product;
-import com.luxoft.korzch.services.base.ProductService;
+import com.luxoft.korzch.services.ProductService;
 
 import java.util.List;
 

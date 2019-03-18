@@ -2,10 +2,10 @@ package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
-import com.luxoft.korzch.services.base.ClientService;
-import com.luxoft.korzch.services.base.OrderService;
-import com.luxoft.korzch.services.base.ProductService;
-import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.OrderService;
+import com.luxoft.korzch.services.ProductService;
+import com.luxoft.korzch.services.SessionService;
 import com.luxoft.korzch.session.LoggedIn;
 
 import java.io.BufferedReader;

@@ -3,9 +3,9 @@ package com.luxoft.korzch.view;
 import com.luxoft.korzch.domain.Client;
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
-import com.luxoft.korzch.services.base.ClientService;
-import com.luxoft.korzch.services.base.OrderService;
-import com.luxoft.korzch.services.base.ProductService;
+import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.OrderService;
+import com.luxoft.korzch.services.ProductService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
