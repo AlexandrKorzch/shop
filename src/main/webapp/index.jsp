@@ -12,7 +12,8 @@
   </head>
   <body>
   <a href="/shop_war_exploded/clients">1.List all clients</a>
-  <%--<a href="productService.html">2.Product</a>--%>
+  <br>
+  <a href="/shop_war_exploded/clients/basket">2.Client basket</a>
   <%--<a href="orderService.html">3.Orders</a>--%>
   </body>
 </html>

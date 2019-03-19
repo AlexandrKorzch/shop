@@ -75,6 +75,6 @@ public class ClientServiceImpl implements ClientService<Client> {
 
     @Override
     public List<Product> getBasket() {
-        return basketDao.getAll(sessionService.getCurrentClient().getId());
+        return basketDao.getAll(/*sessionService.getCurrentClient().getId()*/56);//TODO get real id
     }
 }

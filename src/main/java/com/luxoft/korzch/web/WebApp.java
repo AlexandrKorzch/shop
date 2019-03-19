@@ -27,7 +27,6 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class WebApp implements ServletContextListener {
 
-
     DBConnectionProvider dbConnectionProvider = new DBConnectionProvider();
 
     ProductDao<Product> productDao = new ProductDaoImpl(dbConnectionProvider);
@@ -42,14 +41,9 @@ public class WebApp implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
         ServletContext servletContext = sce.getServletContext();
         servletContext
                 .addServlet("ClientServlet", new ClientServlet(clientService))
-                .addMapping("/clients");
-//        .addMapping("/clients.*"); "*" - for path parameties reading
-        //a href /clients/delete
-
-
+                .addMapping("/clients/*");
     }
 }
