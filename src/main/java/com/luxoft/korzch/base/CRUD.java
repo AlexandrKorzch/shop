@@ -10,7 +10,7 @@ public interface CRUD<T> {
     /**
      * TODO add documentation
      */
-    long create(T item);
+    boolean create(T item);
 
     /**
      * TODO add documentation

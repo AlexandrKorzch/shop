@@ -7,7 +7,6 @@ public class Client extends Model {
     private String lastName;
     private String email;
     private String phone;
-    private Basket basket;
 
     public Client(String name,
                   String lastName,
@@ -24,6 +23,28 @@ public class Client extends Model {
     public Client(String name, String lastName, String phone) {
         this.name = name;
         this.lastName = lastName;
+        this.phone = phone;
+    }
+
+    public Client(long id, String name, String lastName, int age, String phone, String email) {
+        setId(id);
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Client(long id, String email, int age) {
+        setId(id);
+        this.email = email;
+        this.age = age;
+    }
+
+    public Client(long id, String email, int age, String phone) {
+        setId(id);
+        this.email = email;
+        this.age = age;
         this.phone = phone;
     }
 
@@ -65,14 +86,6 @@ public class Client extends Model {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Basket getBasket() {
-        return basket;
-    }
-
-    public void setBasket(Basket basket) {
-        this.basket = basket;
     }
 
     @Override

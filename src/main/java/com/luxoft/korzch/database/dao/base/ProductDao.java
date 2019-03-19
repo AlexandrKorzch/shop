@@ -1,4 +1,4 @@
-package com.luxoft.korzch.dao.base;
+package com.luxoft.korzch.database.dao.base;
 
 import com.luxoft.korzch.base.Common;
 import com.luxoft.korzch.domain.Product;

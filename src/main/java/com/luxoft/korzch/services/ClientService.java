@@ -1,4 +1,4 @@
-package com.luxoft.korzch.services.base;
+package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.base.Common;
 import com.luxoft.korzch.domain.Client;
@@ -6,12 +6,7 @@ import com.luxoft.korzch.domain.Product;
 
 import java.util.List;
 
-public interface ClientService<T extends Client> extends Common<T> {
-
-    /**
-     * TODO add documentation
-     */
-    boolean removeProductFromBasket(long id);
+public interface ClientService<T extends Client> extends Common<Client> {
 
     /**
      * TODO add documentation
@@ -21,11 +16,15 @@ public interface ClientService<T extends Client> extends Common<T> {
     /**
      * TODO add documentation
      */
-    boolean addProductToBasket(long id);
+    boolean addProductToBasket(long productId);
+
+    /**
+     * TODO add documentation
+     */
+    boolean removeProductFromBasket(long productId);
 
     /**
      * TODO add documentation
      */
     List<Product> getBasket();
-
 }

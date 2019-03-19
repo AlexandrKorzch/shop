@@ -2,24 +2,25 @@ package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
-import com.luxoft.korzch.services.base.ClientService;
-import com.luxoft.korzch.services.base.OrderService;
-import com.luxoft.korzch.services.base.ProductService;
-import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.OrderService;
+import com.luxoft.korzch.services.ProductService;
+import com.luxoft.korzch.services.SessionService;
 import com.luxoft.korzch.session.LoggedIn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.luxoft.korzch.util.Util.*;
 
 public class ClientMenu implements Menu {
 
-    private final SessionService sessionService;
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final SessionService sessionService;
     private BufferedReader reader;
 
     public ClientMenu(ClientService clientService,
@@ -63,6 +64,10 @@ public class ClientMenu implements Menu {
                         showOrders();
                         break;
                     }
+                    case "7": {
+                        createOrder();
+                        break;
+                    }
                     case "9": {
                         isRunning = false;
                         break;
@@ -98,7 +103,7 @@ public class ClientMenu implements Menu {
     //2
     private void showAllProducts() throws IOException {
         isClientLoggedIn(() -> {
-            List products = productService.getAll();
+            List<Product> products = productService.getAll();
             if (isNotNullNotEmpty(products)) {
                 products.forEach(product -> System.out.println(product.toString()));
             } else {
@@ -116,7 +121,7 @@ public class ClientMenu implements Menu {
             if (success) {
                 System.out.println("Product has been added to your4 basket");
             } else {
-                System.out.println("Products haven't been found in you basket");
+                System.out.println("Products haven't been added to your basket");
             }
         });
     }
@@ -150,9 +155,27 @@ public class ClientMenu implements Menu {
     //6
     private void showOrders() throws IOException {
         isClientLoggedIn(() -> {
-            List<Order> orders = orderService.getClientOrders();
+            List<Order> orders = orderService.getClientOrders(sessionService.getCurrentClient().getId());
             if (isNotNullNotEmpty(orders)) {
                 orders.forEach(order -> System.out.println(order.toString()));
+            } else {
+                System.out.println("Sorry, You don't have orders");
+            }
+        });
+    }
+
+    private void createOrder() throws IOException { //TODO work here
+        isClientLoggedIn(() -> {
+            Order order = new Order();
+            order.setClientId(sessionService.getCurrentClient().getId());
+
+            List<Product> products = new ArrayList<>();
+            products.add(new Product(45, "Banana", 45.56));
+            products.add(new Product(46, "Apple", 12.56));
+
+            boolean success = orderService.create(order);
+            if (success) {
+                System.out.println("Order has been created");
             } else {
                 System.out.println("Sorry, You don't have orders");
             }
@@ -177,6 +200,7 @@ public class ClientMenu implements Menu {
         System.out.println("4. Show basket");
         System.out.println("5. Remove from basket");
         System.out.println("6. Show orders");
+        System.out.println("7. Create order");
         System.out.println("9. Return");
         System.out.println("0. Exit");
     }

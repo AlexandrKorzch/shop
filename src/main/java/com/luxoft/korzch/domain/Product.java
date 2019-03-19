@@ -5,9 +5,15 @@ public class Product extends Model{
     private String name;
     private double price;
 
-    public Product(String productName, double productPrice) {
-        this.name = productName;
-        this.price = productPrice;
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(long id, String name, double price) {
+        setId(id);
+        this.name = name;
+        this.price = price;
     }
 
     public String getName() {

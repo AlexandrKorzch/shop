@@ -1,8 +1,8 @@
-package com.luxoft.korzch.services;
+package com.luxoft.korzch.services.jdbc;
 
 import com.luxoft.korzch.domain.Client;
-import com.luxoft.korzch.services.base.ClientService;
-import com.luxoft.korzch.services.base.SessionService;
+import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.SessionService;
 import com.luxoft.korzch.session.Session;
 
 import static com.luxoft.korzch.util.Util.isNotNull;

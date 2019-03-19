@@ -1,4 +1,4 @@
-package com.luxoft.korzch.services.base;
+package com.luxoft.korzch.services;
 
 import com.luxoft.korzch.base.Common;
 import com.luxoft.korzch.domain.Order;
@@ -10,7 +10,7 @@ public interface OrderService<T extends Order> extends Common<T> {
     /**
      * TODO add documentation
      * */
-    List<T> getClientOrders();
+    List<T> getClientOrders(long clientId);
 
     /**
      * TODO add documentation

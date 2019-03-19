@@ -1,4 +1,4 @@
-package com.luxoft.korzch.dao.base;
+package com.luxoft.korzch.database.dao.base;
 
 import com.luxoft.korzch.base.Common;
 
@@ -9,5 +9,5 @@ public interface OrderDao<T> extends Common<T> {
     /**
      * TODO add documentation
      * */
-    List<T> getByClientId(long id);
+    List<T> getAllClientOrders(long id);
 }

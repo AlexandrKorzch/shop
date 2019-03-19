@@ -1,10 +1,11 @@
 package com.luxoft.korzch.view;
 
 import com.luxoft.korzch.domain.Client;
+import com.luxoft.korzch.domain.Order;
 import com.luxoft.korzch.domain.Product;
-import com.luxoft.korzch.services.base.ClientService;
-import com.luxoft.korzch.services.base.OrderService;
-import com.luxoft.korzch.services.base.ProductService;
+import com.luxoft.korzch.services.ClientService;
+import com.luxoft.korzch.services.OrderService;
+import com.luxoft.korzch.services.ProductService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -92,9 +93,9 @@ public class AdminMenu implements Menu {
         String lastName = reader.readLine();
         System.out.println("input phone in format (000)-000-00-00");
         String phone = reader.readLine();
-        long clientId = clientService.create(new Client(name, lastName, phone));
-        if (successId(clientId)) {
-            System.out.println("Client has been created with id - " + clientId);
+        boolean success = clientService.create(new Client(name, lastName, phone));
+        if (success) {
+            System.out.println("Client has been created");
         } else {
             System.out.println("Sorry we can't create such client");
         }
@@ -142,7 +143,7 @@ public class AdminMenu implements Menu {
 
     //5
     private void getAllClients() {
-        List clients = clientService.getAll();
+        List<Client> clients = clientService.getAll();
         clients.forEach(client -> System.out.println(client.toString()));
         if (clients.isEmpty()) {
             System.out.println("Sorry, there are not clients in the database");
@@ -155,9 +156,9 @@ public class AdminMenu implements Menu {
         String productName = reader.readLine();
         System.out.println("add product price");
         String productPrice = reader.readLine();
-        long productId = productService.create(new Product(productName, priceToDouble(productPrice)));
-        if (successId(productId)) {
-            System.out.println("new product has been added with id - " + productId);
+        boolean success = productService.create(new Product(productName, priceToDouble(productPrice)));
+        if (success) {
+            System.out.println("new product has been added");
         } else {
             System.out.println("unfortunately product can't be added");
         }
@@ -180,7 +181,7 @@ public class AdminMenu implements Menu {
     private void showClientOrders() throws IOException {
         System.out.println("enter client id");
         long id = idToLong(reader.readLine());
-        List ordersList = orderService.getClientOrders();
+        List <Order> ordersList = orderService.getClientOrders(id);
         if (isNotNullNotEmpty(ordersList)) {
             ordersList.forEach(order -> System.out.println(order.toString()));
         } else {
