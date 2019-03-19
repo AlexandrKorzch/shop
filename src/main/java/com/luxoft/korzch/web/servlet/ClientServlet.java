@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import static com.luxoft.korzch.util.Util.ageToInt;
+import static com.luxoft.korzch.util.Util.idToLong;
+
 
 public class ClientServlet extends HttpServlet {
 
@@ -25,15 +28,30 @@ public class ClientServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         if("/clients".equals(request.getServletPath()) && "/basket".equals(request.getPathInfo())){
             showBasket(response);
+        }else if("/clients".equals(request.getServletPath()) && "/update".equals(request.getPathInfo())){
+            updateClient(request, response);
         }else if("/clients".equals(request.getServletPath())){
             showAllClients(response);
+        }
+    }
+
+    private void updateClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        String id = request.getParameter("id");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String age = request.getParameter("age");
+        boolean success = clientService.update(new Client(idToLong(id), email, ageToInt(age), phone));
+        if(success){
+            out.println("Success");
+        }else {
+            out.println("Something went wrong");
         }
     }
 

@@ -41,6 +41,13 @@ public class Client extends Model {
         this.age = age;
     }
 
+    public Client(long id, String email, int age, String phone) {
+        setId(id);
+        this.email = email;
+        this.age = age;
+        this.phone = phone;
+    }
+
     public String getName() {
         return name;
     }

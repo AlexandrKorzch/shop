@@ -7,13 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>$Title$</title>
-  </head>
-  <body>
-  <a href="/shop_war_exploded/clients">1.List all clients</a>
-  <br>
-  <a href="/shop_war_exploded/clients/basket">2.Client basket</a>
-  <%--<a href="orderService.html">3.Orders</a>--%>
-  </body>
+</head>
+<body>
+<a href="/shop_war_exploded/clients">1.List all clients</a>
+<br>
+<a href="/shop_war_exploded/clients/basket">2.Client basket</a>
+<br>
+<a href="/shop_war_exploded/update_client_form.jsp">3.Update client</a>
+</body>
 </html>
